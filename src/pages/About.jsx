@@ -6,32 +6,32 @@ export default function About() {
   const experiences = [
     {
       type: 'work',
-      title: 'Lead Visual Designer',
-      organization: 'Indo-German Biodiversity Programme, GIZ India',
+      title: 'Business & Data Analyst Developer',
+      organization: 'Independent Projects & Studies',
       period: '2024 - Present',
-      description: 'Designing data-led interfaces, visual guidelines, and mapping tools to monitor biodiversity conservation across Indo-German bilateral projects. Translating scientific data into accessible UX/UI dashboards.'
+      description: 'Designing interactive BI dashboards in Power BI and Tableau. Performing exploratory data analysis using Python (Pandas/Seaborn). Uncovering insights from retail performance, consumer behavior, and sales datasets.'
     },
     {
       type: 'education',
-      title: 'Master of Design (MDes) in Information & Interface Design',
-      organization: 'National Institute of Design (NID), India',
+      title: 'Studies in Business Intelligence & Analytics',
+      organization: 'Specialized Courses & Certifications',
       period: '2022 - 2024',
-      description: 'Specialized in data visualization, typography, interaction design, and storytelling. Researched the intersection of playful illustration and user experience in complex information interfaces.'
+      description: 'Focused on statistical modeling, database querying (SQL), and analytical storytelling. Developed projects on sales optimization and audience engagement modeling.'
     },
     {
       type: 'work',
-      title: 'Freelance Illustrator & UX Designer',
-      organization: 'Self-employed',
+      title: 'Operations & Data Coordinator',
+      organization: 'Freelance Projects',
       period: '2020 - 2022',
-      description: 'Partnered with start-ups and NGOs to develop brand identities, customized vector illustrations, and initial mobile app wireframes. Focused on bringing a playful design aesthetic to digital interfaces.'
+      description: 'Managed spreadsheet-based tracking systems, designed custom Excel reports, and conducted market analysis to support localized business decisions.'
     }
   ];
 
   const tools = [
-    { name: 'UI/UX Design', icon: Layout, details: 'Figma, wireframing, interactive prototyping, user research, heuristic analysis.' },
-    { name: 'Data Visualization', icon: Eye, details: 'D3.js, interactive charting, map layouts, information hierarchies, infographics.' },
-    { name: 'Visual Illustration', icon: PenTool, details: 'Adobe Illustrator, Photoshop, vector storytelling, playful character designs.' },
-    { name: 'Web Prototyping', icon: Code, details: 'React, HTML5, CSS3, Javascript, Framer Motion, responsive design layout.' }
+    { name: 'Data Visualization', icon: Eye, details: 'Power BI, Tableau, building interactive dashboards, design systems, storytelling.' },
+    { name: 'Python Analytics', icon: Code, details: 'Pandas, NumPy, Matplotlib, Seaborn, exploratory data analysis, automation scripts.' },
+    { name: 'Data Modeling & SQL', icon: Layout, details: 'SQL queries, data cleaning, structuring relational tables, database schema design.' },
+    { name: 'Business Intelligence', icon: Briefcase, details: 'Advanced Excel, Pivot tables, financial modeling, analyzing consumer trends.' }
   ];
 
   const containerVariants = {
@@ -121,17 +121,17 @@ export default function About() {
               ABOUT ME
             </span>
             <h1 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', color: 'var(--text-primary)', marginBottom: '1.5rem', lineHeight: 1.25 }}>
-              Design is my way of making complex ideas <span className="text-orange">playful & readable.</span>
+              Transforming raw data into <span className="text-orange">meaningful insights & decisions.</span>
             </h1>
             <div style={{ color: 'var(--text-secondary)', fontSize: '1.025rem', lineHeight: 1.6, display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
               <p>
-                Hi there! I am Komal. I specialize in the intersection of <strong>Information Design</strong> and <strong>Interface/UX Design</strong>. My practice revolves around crafting data-led visual solutions that help people understand and navigate complex systems.
+                I’m an aspiring Business & Data Analyst passionate about transforming raw data into meaningful insights and business decisions. With experience in Power BI, Tableau, Excel, and Python, I enjoy exploring patterns, building dashboards, and solving analytical problems through storytelling and visualization.
               </p>
               <p>
-                With a Master's degree in design (MDes) from the <strong>National Institute of Design (NID)</strong>, I have spent years training my eye for typography, spatial design, and visual hierarchy. My academic and professional journey has taught me to look beyond decorators and prioritize structure, accessibility, and clarity.
+                My interest in analytics comes from a curiosity about understanding consumer behaviour, business trends, and the impact data can create when presented effectively. From analysing retail sales performance to studying emotional storytelling and audience engagement, I enjoy combining creativity with structured analysis to uncover insights that drive smarter decisions.
               </p>
               <p>
-                Currently, I am working with the <strong>Indo-German Biodiversity Programme (@GIZ India)</strong>. Here, I create dashboards, GIS maps, and data graphics that communicate biodiversity indexes and conservation impact. When I am not pushing pixels, you can find me drawing vector doodles and trying to make everyday objects a little bit more playful!
+                Beyond dashboards and reports, I’m continuously learning and building projects that strengthen my skills in business intelligence, visualization, and problem-solving. I aim to create data experiences that are not only insightful, but also clear, engaging, and impactful.
               </p>
             </div>
           </motion.div>
