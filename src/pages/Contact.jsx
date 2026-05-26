@@ -9,7 +9,7 @@ export default function Contact() {
   const [submitStatus, setSubmitStatus] = useState(null); // 'success' or null
   const [localTime, setLocalTime] = useState('');
 
-  // Live local clock in Komal's timezone (India GMT +5:30)
+  // Live local clock in Mitali's timezone (India GMT +5:30)
   useEffect(() => {
     const updateClock = () => {
       const options = {
@@ -179,7 +179,7 @@ export default function Contact() {
                     Message Sent Successfully!
                   </h3>
                   <p style={{ color: 'var(--text-secondary)', fontSize: '0.925rem', lineHeight: 1.6, maxWidth: '320px', marginBottom: '2rem' }}>
-                    Thank you for reaching out! Komal has received your details and will get back to you within 24 hours.
+                    Thank you for reaching out! Mitali has received your details and will get back to you within 24 hours.
                   </p>
                   <button 
                     onClick={() => setSubmitStatus(null)}

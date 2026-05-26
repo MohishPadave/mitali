@@ -179,7 +179,7 @@ export default function Footer({ onConnectClick }) {
           >
             <img 
               src={komalPortrait} 
-              alt="Komal" 
+              alt="Mitali" 
               style={{
                 width: '100%',
                 height: '100%',
@@ -191,7 +191,7 @@ export default function Footer({ onConnectClick }) {
 
           <div>
             <h3 style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.25rem' }}>
-              Komal
+              Mitali Waingankar
             </h3>
             <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
               Information & Experience Designer | MDes @NID
@@ -280,7 +280,7 @@ export default function Footer({ onConnectClick }) {
             color: 'var(--text-tertiary)'
           }}
         >
-          <span>komalmor.framer.website</span>
+          <span>mitaliwaingankar.website</span>
           <span>Built with a glass of VitD & React + Framer Motion</span>
           <span>All rights reserved, ©2026</span>
         </div>

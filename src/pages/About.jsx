@@ -86,7 +86,7 @@ export default function About() {
             >
               <img 
                 src={komalPortrait} 
-                alt="Komal Profile" 
+                alt="Mitali Profile" 
                 style={{
                   width: '100%',
                   height: '100%',

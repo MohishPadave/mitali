@@ -58,48 +58,48 @@ export default function Home({ setActivePage }) {
       id: 'anusha',
       name: 'Anusha Tripathi',
       role: 'Product Designer-I @ Meesho',
-      text: 'Komal is an incredible problem-solver with a strong human-centered approach. She dives deep into understanding real user problems and consistently brings valuable insights to the table. She is thoughtful and empathetic, and balances aesthetics with strong functionality and attention to detail.\n\nShe is also a reliable and generous collaborator, always adding depth and clarity to team projects. During our time at NID, I had the privilege of closely witnessing her growth as a designer, and I truly believe she would be a valuable addition to any design team, both as a sharp thinker and a reliable teammate.',
-      subtext: 'Anusha and Komal studied together @NID Bengaluru, 2023-2026',
+      text: 'Mitali is an incredible problem-solver with a strong human-centered approach. She dives deep into understanding real user problems and consistently brings valuable insights to the table. She is thoughtful and empathetic, and balances aesthetics with strong functionality and attention to detail.\n\nShe is also a reliable and generous collaborator, always adding depth and clarity to team projects. During our time at NID, I had the privilege of closely witnessing her growth as a designer, and I truly believe she would be a valuable addition to any design team, both as a sharp thinker and a reliable teammate.',
+      subtext: 'Anusha and Mitali studied together @NID Bengaluru, 2023-2026',
       image: anushaPortrait,
     },
     {
       id: 'rashmi',
       name: 'Rashmi Bhardwaj',
       role: 'Designer @ SAP',
-      text: 'I worked with Komal as a peer designer, and I was consistently impressed by the depth of her critical thinking and the fidelity of her design work. She has a strong ability to translate research insights into clear, intuitive UX flows. Her visual prototyping skills stand out in particular, bringing clarity to complex interfaces.\n\nBeyond her technical strengths, she is an incredibly empathetic and reliable collaborator who elevates every project she touches. I highly recommend working with her!',
-      subtext: 'Rashmi and Komal studied together @NID Bengaluru, 2023-2026',
+      text: 'I worked with Mitali as a peer designer, and I was consistently impressed by the depth of her critical thinking and the fidelity of her design work. She has a strong ability to translate research insights into clear, intuitive UX flows. Her visual prototyping skills stand out in particular, bringing clarity to complex interfaces.\n\nBeyond her technical strengths, she is an incredibly empathetic and reliable collaborator who elevates every project she touches. I highly recommend working with her!',
+      subtext: 'Rashmi and Mitali studied together @NID Bengaluru, 2023-2026',
       image: rashmiPortrait,
     },
     {
       id: 'sidharth',
       name: 'Sidharth Mehta',
       role: 'UX Researcher @ Google',
-      text: "Komal's talent for information design is exceptional. She has a unique ability to make complex data sets not only readable but engaging. During our collaborations, her attention to detail and user-centric approach were vital to our success. She balances aesthetics with functional, data-led logic beautifully.\n\nShe is a dedicated, thoughtful designer and a brilliant teammate who will bring great value to any team.",
-      subtext: 'Sidharth and Komal collaborated on dashboard research, 2025',
+      text: "Mitali's talent for information design is exceptional. She has a unique ability to make complex data sets not only readable but engaging. During our collaborations, her attention to detail and user-centric approach were vital to our success. She balances aesthetics with functional, data-led logic beautifully.\n\nShe is a dedicated, thoughtful designer and a brilliant teammate who will bring great value to any team.",
+      subtext: 'Sidharth and Mitali collaborated on dashboard research, 2025',
       image: sidharthPortrait,
     },
     {
       id: 'divya',
       name: 'Divya Nair',
       role: 'Visual Lead @ Groww',
-      text: 'Komal has an exceptional ability to synthesize complex operational data into clean, delightful graphics. Her illustrations bring a warm, human touch to our financial user interfaces, making data interpretation natural and engaging. She is collaborative, receptive, and very detail-oriented.',
-      subtext: 'Divya and Komal collaborated on interactive branding, 2024',
+      text: 'Mitali has an exceptional ability to synthesize complex operational data into clean, delightful graphics. Her illustrations bring a warm, human touch to our financial user interfaces, making data interpretation natural and engaging. She is collaborative, receptive, and very detail-oriented.',
+      subtext: 'Divya and Mitali collaborated on interactive branding, 2024',
       image: anushaPortrait,
     },
     {
       id: 'kabir',
       name: 'Kabir Verma',
       role: 'Interaction Designer @ Razorpay',
-      text: 'Working with Komal on dashboard visual designs was an absolute pleasure. She brings a rare combination of visual mastery and logical mapping. She is structured, fast, and constantly pushes the boundaries of clean interface design. Her NID training shows in her strong foundational skills.',
-      subtext: 'Kabir and Komal designed merchant analytical layouts, 2024-2025',
+      text: 'Working with Mitali on dashboard visual designs was an absolute pleasure. She brings a rare combination of visual mastery and logical mapping. She is structured, fast, and constantly pushes the boundaries of clean interface design. Her NID training shows in her strong foundational skills.',
+      subtext: 'Kabir and Mitali designed merchant analytical layouts, 2024-2025',
       image: sidharthPortrait,
     },
     {
       id: 'priya',
       name: 'Priya Iyer',
       role: 'UX Designer @ CRED',
-      text: 'Komal excels at bringing a playful yet highly polished design language to digital products. Her attention to micro-animations, layout consistency, and typography makes her work feel incredibly premium. She is an invaluable asset to any experience design team.',
-      subtext: 'Priya and Komal worked on gamified payment widgets, 2025',
+      text: 'Mitali excels at bringing a playful yet highly polished design language to digital products. Her attention to micro-animations, layout consistency, and typography makes her work feel incredibly premium. She is an invaluable asset to any experience design team.',
+      subtext: 'Priya and Mitali worked on gamified payment widgets, 2025',
       image: rashmiPortrait,
     }
   ];
@@ -191,10 +191,10 @@ export default function Home({ setActivePage }) {
               gap: '0.5rem',
             }}
           >
-            {/* Row 1: Hey, I'm Komal [Avatar] */}
+            {/* Row 1: Hey, I'm Mitali Waingankar [Avatar] */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.8rem', flexWrap: 'wrap' }}>
               <span>Hey, I'm</span>
-              <span className="text-orange">Komal</span>
+              <span className="text-orange">Mitali Waingankar</span>
               
               {/* B&W avatar nestled in text */}
               <motion.div
@@ -214,7 +214,7 @@ export default function Home({ setActivePage }) {
               >
                 <img 
                   src={komalPortrait} 
-                  alt="Komal" 
+                  alt="Mitali" 
                   style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(100%) contrast(1.05)' }} 
                 />
               </motion.div>
