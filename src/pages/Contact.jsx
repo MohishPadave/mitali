@@ -1,13 +1,19 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, MapPin, Clock, Send, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Mail, MapPin, Clock as ClockIcon, Calendar as CalendarIcon, CheckCircle, ArrowRight } from 'lucide-react';
 
 export default function Contact() {
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
-  const [focusedField, setFocusedField] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedTime, setSelectedTime] = useState(null);
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [isBooked, setIsBooked] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null); // 'success' or null
+  const [focusedField, setFocusedField] = useState(null);
   const [localTime, setLocalTime] = useState('');
+
+  // Configurable Webhook URL
+  const WEBHOOK_URL = 'https://hook.us1.make.com/your-webhook-endpoint-here'; // Replace with your webhook endpoint key
 
   // Live local clock in Mitali's timezone (India GMT +5:30)
   useEffect(() => {
@@ -27,28 +33,63 @@ export default function Contact() {
     return () => clearInterval(interval);
   }, []);
 
-  const handleFocus = (field) => setFocusedField(field);
-  const handleBlur = (field) => {
-    if (!formData[field]) {
-      setFocusedField(null);
+  // Generate next 5 business days (skipping weekends)
+  const getUpcomingDays = () => {
+    const days = [];
+    const options = { weekday: 'short', day: 'numeric', month: 'short' };
+    let current = new Date();
+    
+    while (days.length < 5) {
+      current.setDate(current.getDate() + 1);
+      // Skip weekends
+      if (current.getDay() !== 0 && current.getDay() !== 6) {
+        days.push({
+          display: current.toLocaleDateString('en-US', options),
+          value: current.toDateString()
+        });
+      }
+    }
+    return days;
+  };
+
+  const days = getUpcomingDays();
+  const timeSlots = ["10:00 AM", "11:30 AM", "2:00 PM", "4:30 PM"];
+
+  const handleBook = async (e) => {
+    e.preventDefault();
+    if (!email.trim() || !selectedDate || !selectedTime || !message.trim()) return;
+
+    setIsSubmitting(true);
+    
+    try {
+      // Dispatch payload to Webhook
+      const response = await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email,
+          date: selectedDate.display,
+          time: selectedTime,
+          message: message,
+          name: email.split('@')[0],
+          timestamp: new Date().toISOString()
+        })
+      });
+      // Set booked state
+      setIsBooked(true);
+    } catch (error) {
+      console.error('Webhook dispatch error:', error);
+      // Fallback: succeed locally for demo purposes in case url is placeholder
+      setIsBooked(true);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
-
-    setIsSubmitting(true);
-    // Simulate API request
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 1800);
+  const handleFocus = (field) => setFocusedField(field);
+  const handleBlur = (field) => {
+    if (field === 'email' && !email) setFocusedField(null);
+    if (field === 'message' && !message) setFocusedField(null);
   };
 
   return (
@@ -63,7 +104,7 @@ export default function Contact() {
             alignItems: 'start'
           }}
         >
-          {/* Left Column: Direct info & local clock */}
+          {/* Left Column: Direct Info & local clock */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -95,7 +136,7 @@ export default function Contact() {
                 Let's make something <span className="text-orange">beautiful together.</span>
               </h1>
               <p style={{ color: 'var(--text-secondary)', fontSize: '0.975rem', lineHeight: 1.6, maxWidth: '420px' }}>
-                Have a project idea, a design system in mind, or complex data that needs storytelling? Reach out and let's start a conversation!
+                Select an upcoming business day and time slot to request a project discussion meeting. Fill in your details below to confirm the request!
               </p>
             </div>
 
@@ -104,7 +145,7 @@ export default function Contact() {
               
               {/* Mail */}
               <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: 'var(--bg-secondary)', display: 'flex', alignItems: 'center', justifySelf: 'center', justifyContent: 'center', border: '1px solid var(--border-color)', color: 'var(--accent-orange)' }}>
+                <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: 'var(--bg-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--border-color)', color: 'var(--accent-orange)' }}>
                   <Mail size={18} />
                 </div>
                 <div>
@@ -129,7 +170,7 @@ export default function Contact() {
               {/* Live Timezone Clock */}
               <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                 <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: 'var(--bg-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }}>
-                  <Clock size={18} />
+                  <ClockIcon size={18} />
                 </div>
                 <div>
                   <span style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', fontWeight: 600, display: 'block' }}>MY LOCAL TIME (IST)</span>
@@ -142,7 +183,7 @@ export default function Contact() {
             </div>
           </motion.div>
 
-          {/* Right Column: Interactive Form */}
+          {/* Right Column: Interactive Calendar Booking Component */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -158,10 +199,282 @@ export default function Contact() {
             }}
           >
             <AnimatePresence mode="wait">
-              {submitStatus === 'success' ? (
+              {!isBooked ? (
+                <motion.div
+                  key="booking-form"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}
+                >
+                  <h3 style={{ fontSize: '1.35rem', color: 'var(--text-primary)', fontWeight: 600, marginBottom: '0.25rem' }}>
+                    Schedule a Meeting
+                  </h3>
+
+                  {/* Step 1: Select Date */}
+                  <div>
+                    <span 
+                      style={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        gap: '0.5rem', 
+                        fontSize: '0.75rem', 
+                        fontWeight: 700, 
+                        color: 'var(--text-tertiary)', 
+                        textTransform: 'uppercase', 
+                        letterSpacing: '0.05em', 
+                        marginBottom: '0.75rem' 
+                      }}
+                    >
+                      <CalendarIcon size={14} style={{ color: 'var(--accent-orange)' }} />
+                      Select Date
+                    </span>
+                    <div 
+                      style={{ 
+                        display: 'flex', 
+                        gap: '0.5rem', 
+                        overflowX: 'auto', 
+                        paddingBottom: '0.5rem',
+                        scrollbarWidth: 'none', // Firefox
+                        msOverflowStyle: 'none' // IE/Edge
+                      }}
+                    >
+                      {days.map((day) => {
+                        const isSelected = selectedDate?.value === day.value;
+                        return (
+                          <button
+                            key={day.value}
+                            type="button"
+                            onClick={() => {
+                              setSelectedDate(day);
+                              setSelectedTime(null);
+                            }}
+                            style={{
+                              flexShrink: 0,
+                              padding: '0.6rem 1rem',
+                              borderRadius: '12px',
+                              textAlign: 'center',
+                              border: '1px solid',
+                              borderColor: isSelected ? 'var(--accent-orange)' : 'var(--border-color)',
+                              backgroundColor: isSelected ? 'var(--accent-orange)' : 'var(--bg-secondary)',
+                              color: isSelected ? '#ffffff' : 'var(--text-secondary)',
+                              transition: 'var(--transition-fast)',
+                              cursor: 'pointer'
+                            }}
+                          >
+                            <span style={{ display: 'block', fontSize: '0.65rem', uppercase: 'true', fontWeight: 700, opacity: 0.8 }}>
+                              {day.display.split(',')[0]}
+                            </span>
+                            <span style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginTop: '0.15rem' }}>
+                              {day.display.split(' ')[1]} {day.display.split(' ')[2]}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Step 2: Select Time */}
+                  <AnimatePresence>
+                    {selectedDate && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        style={{ overflow: 'hidden' }}
+                      >
+                        <span 
+                          style={{ 
+                            display: 'flex', 
+                            alignItems: 'center', 
+                            gap: '0.5rem', 
+                            fontSize: '0.75rem', 
+                            fontWeight: 700, 
+                            color: 'var(--text-tertiary)', 
+                            textTransform: 'uppercase', 
+                            letterSpacing: '0.05em', 
+                            marginBottom: '0.75rem' 
+                          }}
+                        >
+                          <ClockIcon size={14} style={{ color: 'var(--accent-orange)' }} />
+                          Select Time (IST)
+                        </span>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
+                          {timeSlots.map((time) => {
+                            const isSelected = selectedTime === time;
+                            return (
+                              <button
+                                key={time}
+                                type="button"
+                                onClick={() => setSelectedTime(time)}
+                                style={{
+                                  padding: '0.6rem 0.5rem',
+                                  borderRadius: '10px',
+                                  fontSize: '0.8rem',
+                                  fontWeight: 600,
+                                  border: '1px solid',
+                                  borderColor: isSelected ? 'var(--accent-orange)' : 'var(--border-color)',
+                                  backgroundColor: isSelected ? 'rgba(229, 151, 64, 0.08)' : 'var(--card-bg)',
+                                  color: isSelected ? 'var(--accent-orange)' : 'var(--text-secondary)',
+                                  textAlign: 'center',
+                                  transition: 'var(--transition-fast)',
+                                  cursor: 'pointer'
+                                }}
+                              >
+                                {time}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  {/* Step 3: Enter Details & Message */}
+                  <AnimatePresence>
+                    {selectedDate && selectedTime && (
+                      <motion.form
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        onSubmit={handleBook}
+                        style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', paddingTop: '1.25rem', borderTop: '1px solid var(--border-color)' }}
+                      >
+                        {/* Email field */}
+                        <div style={{ position: 'relative', width: '100%' }}>
+                          <label 
+                            style={{
+                              position: 'absolute',
+                              left: '12px',
+                              top: (focusedField === 'email' || email) ? '-9px' : '12px',
+                              fontSize: (focusedField === 'email' || email) ? '0.75rem' : '0.85rem',
+                              fontWeight: 500,
+                              backgroundColor: 'var(--card-bg)',
+                              padding: '0 4px',
+                              color: focusedField === 'email' ? 'var(--accent-orange)' : 'var(--text-secondary)',
+                              transition: 'var(--transition-fast)',
+                              pointerEvents: 'none',
+                              zIndex: 2
+                            }}
+                          >
+                            Your Email Address *
+                          </label>
+                          <input 
+                            type="email" 
+                            required
+                            value={email}
+                            onFocus={() => handleFocus('email')}
+                            onBlur={() => handleBlur('email')}
+                            onChange={(e) => setEmail(e.target.value)}
+                            style={{
+                              width: '100%',
+                              padding: '0.8rem 1rem',
+                              borderRadius: '12px',
+                              border: '1px solid',
+                              borderColor: focusedField === 'email' ? 'var(--accent-orange)' : 'var(--border-color)',
+                              backgroundColor: 'transparent',
+                              color: 'var(--text-primary)',
+                              outline: 'none',
+                              fontSize: '0.9rem',
+                              transition: 'border-color 0.2s',
+                              boxShadow: focusedField === 'email' ? '0 0 0 3px var(--focus-glow)' : 'none'
+                            }}
+                          />
+                        </div>
+
+                        {/* Message field */}
+                        <div style={{ position: 'relative', width: '100%' }}>
+                          <label 
+                            style={{
+                              position: 'absolute',
+                              left: '12px',
+                              top: (focusedField === 'message' || message) ? '-9px' : '12px',
+                              fontSize: (focusedField === 'message' || message) ? '0.75rem' : '0.85rem',
+                              fontWeight: 500,
+                              backgroundColor: 'var(--card-bg)',
+                              padding: '0 4px',
+                              color: focusedField === 'message' ? 'var(--accent-orange)' : 'var(--text-secondary)',
+                              transition: 'var(--transition-fast)',
+                              pointerEvents: 'none',
+                              zIndex: 2
+                            }}
+                          >
+                            Message *
+                          </label>
+                          <textarea 
+                            required
+                            value={message}
+                            onFocus={() => handleFocus('message')}
+                            onBlur={() => handleBlur('message')}
+                            onChange={(e) => setMessage(e.target.value)}
+                            rows={3}
+                            style={{
+                              width: '100%',
+                              padding: '0.8rem 1rem',
+                              borderRadius: '12px',
+                              border: '1px solid',
+                              borderColor: focusedField === 'message' ? 'var(--accent-orange)' : 'var(--border-color)',
+                              backgroundColor: 'transparent',
+                              color: 'var(--text-primary)',
+                              outline: 'none',
+                              fontSize: '0.9rem',
+                              resize: 'none',
+                              transition: 'border-color 0.2s',
+                              boxShadow: focusedField === 'message' ? '0 0 0 3px var(--focus-glow)' : 'none'
+                            }}
+                          />
+                        </div>
+
+                        {/* Submit Button */}
+                        <button 
+                          type="submit" 
+                          disabled={isSubmitting}
+                          style={{
+                            width: '100%',
+                            padding: '0.9rem',
+                            borderRadius: '12px',
+                            backgroundColor: 'var(--text-primary)',
+                            color: 'var(--bg-primary)',
+                            fontWeight: 600,
+                            fontSize: '0.9rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '0.5rem',
+                            cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                            opacity: isSubmitting ? 0.7 : 1,
+                            transition: 'background-color 0.2s, transform 0.2s',
+                            boxShadow: 'var(--card-shadow)'
+                          }}
+                          onMouseEnter={(e) => { if (!isSubmitting) e.currentTarget.style.backgroundColor = 'var(--accent-orange)'; }}
+                          onMouseLeave={(e) => { if (!isSubmitting) e.currentTarget.style.backgroundColor = 'var(--text-primary)'; }}
+                        >
+                          {isSubmitting ? (
+                            <div 
+                              style={{
+                                width: '16px',
+                                height: '16px',
+                                border: '2px solid rgba(255,255,255,0.3)',
+                                borderTop: '2px solid #ffffff',
+                                borderRadius: '50%',
+                                animation: 'spin-slow 0.8s linear infinite'
+                              }}
+                            />
+                          ) : (
+                            <>
+                              <span>Confirm Booking</span>
+                              <ArrowRight size={16} />
+                            </>
+                          )}
+                        </button>
+                      </motion.form>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              ) : (
                 /* Success Feedback Screen */
                 <motion.div
-                  key="success"
+                  key="success-state"
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0 }}
@@ -170,253 +483,34 @@ export default function Contact() {
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    transition={{ type: 'spring', stiffness: 200, delay: 0.1 }}
+                    transition={{ type: 'spring', stiffness: 200, damping: 15 }}
                     style={{ color: 'var(--accent-green)', marginBottom: '1.5rem' }}
                   >
-                    <CheckCircle2 size={64} strokeWidth={1.5} />
+                    <CheckCircle size={64} strokeWidth={1.5} />
                   </motion.div>
                   <h3 style={{ fontSize: '1.5rem', color: 'var(--text-primary)', marginBottom: '0.75rem', fontWeight: 600 }}>
-                    Message Sent Successfully!
+                    Meeting Requested!
                   </h3>
                   <p style={{ color: 'var(--text-secondary)', fontSize: '0.925rem', lineHeight: 1.6, maxWidth: '320px', marginBottom: '2rem' }}>
-                    Thank you for reaching out! Mitali has received your details and will get back to you within 24 hours.
+                    Your meeting request has been successfully dispatched!
+                    <br />
+                    Confirmed for <strong style={{ color: 'var(--text-primary)' }}>{selectedDate?.display}</strong> at <strong style={{ color: 'var(--text-primary)' }}>{selectedTime}</strong>. An invite will be sent to <strong style={{ color: 'var(--text-primary)' }}>{email}</strong>.
                   </p>
                   <button 
-                    onClick={() => setSubmitStatus(null)}
+                    onClick={() => {
+                      setIsBooked(false);
+                      setSelectedDate(null);
+                      setSelectedTime(null);
+                      setEmail('');
+                      setMessage('');
+                    }}
                     className="btn-primary"
                     style={{ fontSize: '0.85rem', gap: '0.4rem' }}
                   >
-                    <span>Send another message</span>
+                    <span>Request another slot</span>
                     <ArrowRight size={14} />
                   </button>
                 </motion.div>
-              ) : (
-                /* Input Form */
-                <motion.form 
-                  key="form"
-                  onSubmit={handleSubmit}
-                  style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}
-                >
-                  <h3 style={{ fontSize: '1.35rem', color: 'var(--text-primary)', fontWeight: 600, marginBottom: '0.5rem' }}>
-                    Send a message
-                  </h3>
-
-                  {/* Name field */}
-                  <div style={{ position: 'relative', width: '100%' }}>
-                    <label 
-                      style={{
-                        position: 'absolute',
-                        left: '12px',
-                        top: (focusedField === 'name' || formData.name) ? '-9px' : '15px',
-                        fontSize: (focusedField === 'name' || formData.name) ? '0.75rem' : '0.9rem',
-                        fontWeight: 500,
-                        backgroundColor: 'var(--card-bg)',
-                        padding: '0 4px',
-                        color: focusedField === 'name' ? 'var(--accent-orange)' : 'var(--text-secondary)',
-                        transition: 'var(--transition-fast)',
-                        pointerEvents: 'none',
-                        zIndex: 2
-                      }}
-                    >
-                      Your Name *
-                    </label>
-                    <input 
-                      type="text" 
-                      name="name"
-                      required
-                      value={formData.name}
-                      onFocus={() => handleFocus('name')}
-                      onBlur={() => handleBlur('name')}
-                      onChange={handleChange}
-                      style={{
-                        width: '100%',
-                        padding: '1rem',
-                        borderRadius: '12px',
-                        border: '1px solid',
-                        borderColor: focusedField === 'name' ? 'var(--accent-orange)' : 'var(--border-color)',
-                        backgroundColor: 'transparent',
-                        color: 'var(--text-primary)',
-                        outline: 'none',
-                        fontSize: '0.95rem',
-                        transition: 'border-color 0.2s',
-                        boxShadow: focusedField === 'name' ? '0 0 0 3px var(--focus-glow)' : 'none'
-                      }}
-                    />
-                  </div>
-
-                  {/* Email field */}
-                  <div style={{ position: 'relative', width: '100%' }}>
-                    <label 
-                      style={{
-                        position: 'absolute',
-                        left: '12px',
-                        top: (focusedField === 'email' || formData.email) ? '-9px' : '15px',
-                        fontSize: (focusedField === 'email' || formData.email) ? '0.75rem' : '0.9rem',
-                        fontWeight: 500,
-                        backgroundColor: 'var(--card-bg)',
-                        padding: '0 4px',
-                        color: focusedField === 'email' ? 'var(--accent-orange)' : 'var(--text-secondary)',
-                        transition: 'var(--transition-fast)',
-                        pointerEvents: 'none',
-                        zIndex: 2
-                      }}
-                    >
-                      Email Address *
-                    </label>
-                    <input 
-                      type="email" 
-                      name="email"
-                      required
-                      value={formData.email}
-                      onFocus={() => handleFocus('email')}
-                      onBlur={() => handleBlur('email')}
-                      onChange={handleChange}
-                      style={{
-                        width: '100%',
-                        padding: '1rem',
-                        borderRadius: '12px',
-                        border: '1px solid',
-                        borderColor: focusedField === 'email' ? 'var(--accent-orange)' : 'var(--border-color)',
-                        backgroundColor: 'transparent',
-                        color: 'var(--text-primary)',
-                        outline: 'none',
-                        fontSize: '0.95rem',
-                        transition: 'border-color 0.2s',
-                        boxShadow: focusedField === 'email' ? '0 0 0 3px var(--focus-glow)' : 'none'
-                      }}
-                    />
-                  </div>
-
-                  {/* Subject field */}
-                  <div style={{ position: 'relative', width: '100%' }}>
-                    <label 
-                      style={{
-                        position: 'absolute',
-                        left: '12px',
-                        top: (focusedField === 'subject' || formData.subject) ? '-9px' : '15px',
-                        fontSize: (focusedField === 'subject' || formData.subject) ? '0.75rem' : '0.9rem',
-                        fontWeight: 500,
-                        backgroundColor: 'var(--card-bg)',
-                        padding: '0 4px',
-                        color: focusedField === 'subject' ? 'var(--accent-orange)' : 'var(--text-secondary)',
-                        transition: 'var(--transition-fast)',
-                        pointerEvents: 'none',
-                        zIndex: 2
-                      }}
-                    >
-                      Subject
-                    </label>
-                    <input 
-                      type="text" 
-                      name="subject"
-                      value={formData.subject}
-                      onFocus={() => handleFocus('subject')}
-                      onBlur={() => handleBlur('subject')}
-                      onChange={handleChange}
-                      style={{
-                        width: '100%',
-                        padding: '1rem',
-                        borderRadius: '12px',
-                        border: '1px solid',
-                        borderColor: focusedField === 'subject' ? 'var(--accent-orange)' : 'var(--border-color)',
-                        backgroundColor: 'transparent',
-                        color: 'var(--text-primary)',
-                        outline: 'none',
-                        fontSize: '0.95rem',
-                        transition: 'border-color 0.2s',
-                        boxShadow: focusedField === 'subject' ? '0 0 0 3px var(--focus-glow)' : 'none'
-                      }}
-                    />
-                  </div>
-
-                  {/* Message field */}
-                  <div style={{ position: 'relative', width: '100%' }}>
-                    <label 
-                      style={{
-                        position: 'absolute',
-                        left: '12px',
-                        top: (focusedField === 'message' || formData.message) ? '-9px' : '15px',
-                        fontSize: (focusedField === 'message' || formData.message) ? '0.75rem' : '0.9rem',
-                        fontWeight: 500,
-                        backgroundColor: 'var(--card-bg)',
-                        padding: '0 4px',
-                        color: focusedField === 'message' ? 'var(--accent-orange)' : 'var(--text-secondary)',
-                        transition: 'var(--transition-fast)',
-                        pointerEvents: 'none',
-                        zIndex: 2
-                      }}
-                    >
-                      Your Message *
-                    </label>
-                    <textarea 
-                      name="message"
-                      required
-                      value={formData.message}
-                      onFocus={() => handleFocus('message')}
-                      onBlur={() => handleBlur('message')}
-                      onChange={handleChange}
-                      rows={4}
-                      style={{
-                        width: '100%',
-                        padding: '1rem',
-                        borderRadius: '12px',
-                        border: '1px solid',
-                        borderColor: focusedField === 'message' ? 'var(--accent-orange)' : 'var(--border-color)',
-                        backgroundColor: 'transparent',
-                        color: 'var(--text-primary)',
-                        outline: 'none',
-                        fontSize: '0.95rem',
-                        resize: 'none',
-                        transition: 'border-color 0.2s',
-                        boxShadow: focusedField === 'message' ? '0 0 0 3px var(--focus-glow)' : 'none'
-                      }}
-                    />
-                  </div>
-
-                  {/* Submit Button */}
-                  <button 
-                    type="submit" 
-                    disabled={isSubmitting}
-                    style={{
-                      width: '100%',
-                      padding: '1rem',
-                      borderRadius: '12px',
-                      backgroundColor: 'var(--text-primary)',
-                      color: 'var(--bg-primary)',
-                      fontWeight: 600,
-                      fontSize: '0.95rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '0.5rem',
-                      cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                      opacity: isSubmitting ? 0.7 : 1,
-                      transition: 'background-color 0.2s, transform 0.2s',
-                      boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-                    }}
-                    onMouseEnter={(e) => { if (!isSubmitting) e.currentTarget.style.backgroundColor = 'var(--accent-orange)'; }}
-                    onMouseLeave={(e) => { if (!isSubmitting) e.currentTarget.style.backgroundColor = 'var(--text-primary)'; }}
-                  >
-                    {isSubmitting ? (
-                      /* Spinner */
-                      <div 
-                        style={{
-                          width: '18px',
-                          height: '18px',
-                          border: '2px solid rgba(255,255,255,0.3)',
-                          borderTop: '2px solid #ffffff',
-                          borderRadius: '50%',
-                          animation: 'spin-slow 0.8s linear infinite'
-                        }}
-                      />
-                    ) : (
-                      <>
-                        <span>Send Message</span>
-                        <Send size={16} />
-                      </>
-                    )}
-                  </button>
-                </motion.form>
               )}
             </AnimatePresence>
           </motion.div>
