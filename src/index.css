@@ -326,3 +326,42 @@ button {
     transform: translate(-50%, -50%) scale(0.8);
   }
 }
+
+/* Orange Button and Resume Container */
+.btn-orange {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--accent-orange);
+  color: #ffffff;
+  border: 1px solid var(--accent-orange);
+  padding: 0.875rem 2rem;
+  border-radius: 100px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  box-shadow: var(--card-shadow);
+  transition: var(--transition-smooth);
+}
+
+.btn-orange:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(229, 151, 64, 0.2);
+  background-color: var(--accent-orange-hover);
+  border-color: var(--accent-orange-hover);
+}
+
+.btn-orange:active {
+  transform: translateY(0);
+}
+
+.resume-btn-container {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: flex-start;
+}
+
+@media (max-width: 768px) {
+  .resume-btn-container {
+    justify-content: center;
+  }
+}

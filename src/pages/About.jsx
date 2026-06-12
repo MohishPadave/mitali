@@ -164,11 +164,11 @@ export default function About() {
             </div>
 
             {/* Download Resume Button */}
-            <div style={{ marginTop: '2.5rem' }}>
+            <div className="resume-btn-container">
               <a 
                 href="/Mitali_Resume.pdf" 
                 download="Mitali_Resume.pdf"
-                className="btn-primary"
+                className="btn-orange"
                 style={{ display: 'inline-flex', gap: '0.6rem', alignItems: 'center' }}
               >
                 <span>Download Resume</span>
