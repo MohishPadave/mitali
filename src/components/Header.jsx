@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Home, Folder, User, Mail, Menu, Sun, Moon } from 'lucide-react';
 import { useScrollPosition } from '../hooks/useScrollPosition';
@@ -7,6 +7,15 @@ import headerLogo from '../assets/header_logo.png';
 export default function Header({ activePage, setActivePage, theme, toggleTheme }) {
   const { isScrolled } = useScrollPosition(50);
   const [isHovered, setIsHovered] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const isMobile = windowWidth < 640;
 
   // The header expands if scrolled down OR if hovered at the top
   const isExpanded = isScrolled || isHovered;
@@ -41,12 +50,17 @@ export default function Header({ activePage, setActivePage, theme, toggleTheme }
         }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        onClick={() => {
+          if (!isExpanded) {
+            setIsHovered(true);
+          }
+        }}
         style={{
           pointerEvents: 'auto', // Enable pointer events for the nav itself
           display: 'flex',
           alignItems: 'center',
-          gap: isExpanded ? '1rem' : '0rem',
-          padding: isExpanded ? '0.5rem 1.25rem 0.5rem 0.6rem' : '0.5rem',
+          gap: isExpanded ? (isMobile ? '0.4rem' : '1rem') : '0rem',
+          padding: isExpanded ? (isMobile ? '0.4rem 0.6rem 0.4rem 0.4rem' : '0.5rem 1.25rem 0.5rem 0.6rem') : '0.5rem',
           backgroundColor: 'var(--header-bg)',
           backdropFilter: 'blur(16px)',
           WebkitBackdropFilter: 'blur(16px)',
@@ -108,21 +122,31 @@ export default function Header({ activePage, setActivePage, theme, toggleTheme }
                 return (
                   <motion.button
                     key={item.id}
-                    onClick={() => setActivePage(item.id)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActivePage(item.id);
+                      if (isMobile) {
+                        setIsHovered(false);
+                      }
+                    }}
                     whileHover={{ scale: 1.08 }}
                     whileTap={{ scale: 0.95 }}
                     style={{
                       position: 'relative',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '0.4rem',
-                      padding: '0.4rem 0.8rem',
+                      justifyContent: 'center',
+                      gap: isMobile ? '0' : '0.4rem',
+                      padding: isMobile ? '0.5rem' : '0.4rem 0.8rem',
                       borderRadius: '9999px',
                       color: isActive ? '#ffffff' : 'var(--text-secondary)',
                       fontSize: '0.85rem',
                       fontWeight: 500,
                       transition: 'color 0.2s ease',
+                      width: isMobile ? '36px' : 'auto',
+                      height: isMobile ? '36px' : 'auto',
                     }}
+                    title={item.label}
                   >
                     {/* Background active indicator */}
                     {isActive && (
@@ -143,14 +167,17 @@ export default function Header({ activePage, setActivePage, theme, toggleTheme }
                       />
                     )}
                     <Icon size={16} strokeWidth={isActive ? 2.2 : 1.8} />
-                    <span style={{ display: 'inline-block' }}>{item.label}</span>
+                    {!isMobile && <span style={{ display: 'inline-block' }}>{item.label}</span>}
                   </motion.button>
                 );
               })}
 
               {/* Theme Toggle Button */}
               <motion.button
-                onClick={toggleTheme}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleTheme();
+                }}
                 whileHover={{ scale: 1.08 }}
                 whileTap={{ scale: 0.95 }}
                 style={{
@@ -164,6 +191,8 @@ export default function Header({ activePage, setActivePage, theme, toggleTheme }
                   border: '1px solid var(--border-color)',
                   backgroundColor: 'rgba(28, 27, 26, 0.02)',
                   marginLeft: '0.25rem',
+                  width: isMobile ? '36px' : 'auto',
+                  height: isMobile ? '36px' : 'auto',
                 }}
                 title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`}
                 aria-label="Toggle Theme"
