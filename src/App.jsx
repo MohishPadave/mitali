@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import CustomCursor from './components/CustomCursor';
 import Home from './pages/Home';
 import About from './pages/About';
 import Projects from './pages/Projects';
@@ -43,16 +44,16 @@ function App() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', position: 'relative' }}>
-      
-      {/* Floating Header */}
-      <Header activePage={activePage} setActivePage={setActivePage} />
 
-      {/* Floating Theme Toggler (Decorative/Interactive Circle Dot on the right) */}
-      <button 
-        onClick={toggleTheme}
-        className="floating-side-dot"
-        title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`}
-        aria-label="Toggle Theme"
+      {/* Custom Cursor */}
+      <CustomCursor />
+
+      {/* Floating Header */}
+      <Header 
+        activePage={activePage} 
+        setActivePage={setActivePage} 
+        theme={theme} 
+        toggleTheme={toggleTheme} 
       />
 
       {/* Main Page Content Wrapper with Transitions */}
@@ -73,7 +74,7 @@ function App() {
 
       {/* Shared Footer Section */}
       <Footer onConnectClick={() => setActivePage('contact')} />
-      
+
     </div>
   );
 }

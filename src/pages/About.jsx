@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import { Briefcase, GraduationCap, PenTool, Layout, Eye, Code } from 'lucide-react';
-import komalPortrait from '../assets/komal_headshot.png';
+import { Briefcase, GraduationCap, PenTool, Layout, Eye, Code, Download } from 'lucide-react';
+import mitaliPortrait from '../assets/mitali.jpg';
 
 export default function About() {
   const experiences = [
@@ -71,27 +71,22 @@ export default function About() {
             <div 
               style={{
                 width: '100%',
-                maxWidth: '340px',
+                maxWidth: '300px',
                 aspectRatio: '1',
-                borderRadius: '24px',
+                borderRadius: '50%',
                 overflow: 'hidden',
                 boxShadow: 'var(--card-shadow)',
-                border: '1px solid var(--border-color)',
-                backgroundColor: 'var(--card-bg)',
-                transform: 'rotate(-2deg)',
-                transition: 'transform 0.4s ease',
+                border: '3px solid var(--border-color)',
+                backgroundColor: 'var(--card-bg)'
               }}
-              onMouseEnter={(e) => e.currentTarget.style.transform = 'rotate(0deg) scale(1.02)'}
-              onMouseLeave={(e) => e.currentTarget.style.transform = 'rotate(-2deg)'}
             >
               <img 
-                src={komalPortrait} 
+                src={mitaliPortrait} 
                 alt="Mitali Profile" 
                 style={{
                   width: '100%',
                   height: '100%',
-                  objectFit: 'cover',
-                  filter: 'grayscale(100%)'
+                  objectFit: 'cover'
                 }}
               />
             </div>
@@ -133,6 +128,19 @@ export default function About() {
               <p>
                 Beyond dashboards and reports, I’m continuously learning and building projects that strengthen my skills in business intelligence, visualization, and problem-solving. I aim to create data experiences that are not only insightful, but also clear, engaging, and impactful.
               </p>
+            </div>
+
+            {/* Download Resume Button */}
+            <div style={{ marginTop: '2.5rem' }}>
+              <a 
+                href="/Mitali_Resume.pdf" 
+                download="Mitali_Resume.pdf"
+                className="btn-primary"
+                style={{ display: 'inline-flex', gap: '0.6rem', alignItems: 'center' }}
+              >
+                <span>Download Resume</span>
+                <Download size={16} />
+              </a>
             </div>
           </motion.div>
         </div>

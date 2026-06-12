@@ -150,8 +150,8 @@ export default function Contact() {
                 </div>
                 <div>
                   <span style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', fontWeight: 600, display: 'block' }}>EMAIL ME</span>
-                  <a href="mailto:hkmor.21@gmail.com" style={{ fontSize: '0.95rem', fontWeight: 500, color: 'var(--text-primary)' }} className="text-hover-orange">
-                    hkmor.21@gmail.com
+                  <a href="mailto:mitali.waingankar09@gmail.com" style={{ fontSize: '0.95rem', fontWeight: 500, color: 'var(--text-primary)' }} className="text-hover-orange">
+                    mitali.waingankar09@gmail.com
                   </a>
                 </div>
               </div>
@@ -163,7 +163,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <span style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', fontWeight: 600, display: 'block' }}>LOCATION</span>
-                  <span style={{ fontSize: '0.95rem', fontWeight: 500 }}>New Delhi, India</span>
+                  <span style={{ fontSize: '0.95rem', fontWeight: 500 }}>Mumbai, India</span>
                 </div>
               </div>
 

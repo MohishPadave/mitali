@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Mail } from 'lucide-react';
-import komalPortrait from '../assets/komal_headshot.png';
+import mitaliPortrait from '../assets/mitali.jpg';
 
 // Custom LinkedIn Icon Component
 function LinkedinIcon({ size = 18 }) {
@@ -23,41 +23,6 @@ function LinkedinIcon({ size = 18 }) {
   );
 }
 
-// Custom Behance Icon Component
-function BehanceIcon({ size = 18 }) {
-  return (
-    <svg 
-      viewBox="0 0 24 24" 
-      width={size} 
-      height={size} 
-      fill="currentColor"
-      style={{ display: 'block' }}
-    >
-      <path d="M8.2 5h-4.3v14h4.5c2.6 0 4.7-1.4 4.7-4 0-1.7-1.1-2.9-2.7-3.4 1.3-.5 2.1-1.6 2.1-3.1 0-2.3-1.9-3.5-4.3-3.5zm-2.1 2.3h1.8c1.1 0 1.9.5 1.9 1.4 0 .9-.8 1.4-1.9 1.4h-1.8v-2.8zm1.9 8.4h-1.9v-3h1.9c1.2 0 2 .5 2 1.5s-.8 1.5-2 1.5zm14-5.2h-5.6c0-1.3 1-2.2 2.5-2.2 1.4 0 2.2.8 2.2 1.8h2.1c-.2-2.1-2-3.6-4.3-3.6-2.9 0-4.8 2.1-4.8 5 0 2.8 2 5 4.9 5 2.4 0 4.2-1.5 4.5-3.8h-2.1c-.2 1.1-1 1.7-2.3 1.7-1.5 0-2.5-.9-2.6-2.2h7.8v-.7zm-5.4-1.5c.2-1 1-1.6 2.2-1.6 1.1 0 1.9.6 2 1.6h-4.2zm2.1-5h4v-1.1h-4v1.1z"/>
-    </svg>
-  );
-}
-
-// Custom Instagram Icon Component
-function InstagramIcon({ size = 18 }) {
-  return (
-    <svg 
-      viewBox="0 0 24 24" 
-      width={size} 
-      height={size} 
-      fill="none" 
-      stroke="currentColor" 
-      strokeWidth="2" 
-      strokeLinecap="round" 
-      strokeLinejoin="round" 
-      style={{ display: 'block' }}
-    >
-      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-    </svg>
-  );
-}
 
 export default function Footer({ onConnectClick }) {
   return (
@@ -122,33 +87,6 @@ export default function Footer({ onConnectClick }) {
           }}
         >
           I'd be happy to <span className="text-orange">connect with you!</span>
-          
-          {/* Circular Decorative Dot Icon aligned to the right (absolute desktop, relative mobile) */}
-          <div 
-            style={{
-              display: 'inline-block',
-              marginLeft: '1rem',
-              verticalAlign: 'middle',
-              width: '32px',
-              height: '32px',
-              border: '1px solid var(--text-primary)',
-              borderRadius: '50%',
-              position: 'relative',
-            }}
-          >
-            <span 
-              style={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                width: '6px',
-                height: '6px',
-                backgroundColor: 'var(--text-primary)',
-                borderRadius: '50%',
-              }}
-            />
-          </div>
         </motion.h2>
 
         {/* Profile Card / Info */}
@@ -168,23 +106,22 @@ export default function Footer({ onConnectClick }) {
           {/* B&W Portrait Circular crop */}
           <div 
             style={{
-              width: '80px',
-              height: '80px',
+              width: '150px',
+              height: '150px',
               borderRadius: '50%',
               overflow: 'hidden',
-              border: '2px solid var(--border-color)',
+              border: '3px solid var(--border-color)',
               boxShadow: 'var(--card-shadow)',
               backgroundColor: '#f3f0ec'
             }}
           >
             <img 
-              src={komalPortrait} 
+              src={mitaliPortrait} 
               alt="Mitali" 
               style={{
                 width: '100%',
                 height: '100%',
-                objectFit: 'cover',
-                filter: 'grayscale(100%) contrast(1.1)' // ensure B&W styling
+                objectFit: 'cover'
               }}
             />
           </div>
@@ -194,7 +131,7 @@ export default function Footer({ onConnectClick }) {
               Mitali Waingankar
             </h3>
             <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
-              Information & Experience Designer | MDes @NID
+              Aspiring Data Analyst & Creative Problem Solver
             </p>
           </div>
 
@@ -203,7 +140,7 @@ export default function Footer({ onConnectClick }) {
               CONTACT ME
             </span>
             <a 
-              href="mailto:hkmor.21@gmail.com"
+              href="mailto:mitali.waingankar09@gmail.com"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -217,7 +154,7 @@ export default function Footer({ onConnectClick }) {
               onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-primary)'}
             >
               <Mail size={16} />
-              <span>hkmor.21@gmail.com</span>
+              <span>mitali.waingankar09@gmail.com</span>
             </a>
           </div>
 
@@ -229,9 +166,7 @@ export default function Footer({ onConnectClick }) {
         {/* Social Icons */}
         <div style={{ display: 'flex', gap: '1rem', marginBottom: '5rem' }}>
           {[
-            { name: 'LinkedIn', icon: LinkedinIcon, url: 'https://linkedin.com' },
-            { name: 'Behance', icon: BehanceIcon, url: 'https://behance.net' },
-            { name: 'Instagram', icon: InstagramIcon, url: 'https://instagram.com' }
+            { name: 'LinkedIn', icon: LinkedinIcon, url: 'https://www.linkedin.com/in/mitali-waingankar-14391b215/' }
           ].map((social, idx) => {
             const IconComp = social.icon;
             return (
@@ -272,16 +207,12 @@ export default function Footer({ onConnectClick }) {
             borderTop: '1px solid var(--border-color)',
             paddingTop: '1.5rem',
             display: 'flex',
-            justifyContent: 'space-between',
+            justifyContent: 'center',
             alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: '1rem',
             fontSize: '0.8rem',
             color: 'var(--text-tertiary)'
           }}
         >
-          <span>mitaliwaingankar.website</span>
-          <span>Built with a glass of VitD & React + Framer Motion</span>
           <span>All rights reserved, ©2026</span>
         </div>
 

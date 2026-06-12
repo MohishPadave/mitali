@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Home, Folder, User, Mail, Menu } from 'lucide-react';
+import { Home, Folder, User, Mail, Menu, Sun, Moon } from 'lucide-react';
 import { useScrollPosition } from '../hooks/useScrollPosition';
 import headerLogo from '../assets/header_logo.png';
 
-export default function Header({ activePage, setActivePage }) {
+export default function Header({ activePage, setActivePage, theme, toggleTheme }) {
   const { isScrolled } = useScrollPosition(50);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -147,6 +147,29 @@ export default function Header({ activePage, setActivePage }) {
                   </motion.button>
                 );
               })}
+
+              {/* Theme Toggle Button */}
+              <motion.button
+                onClick={toggleTheme}
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.95 }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '0.4rem',
+                  borderRadius: '50%',
+                  color: 'var(--text-secondary)',
+                  cursor: 'pointer',
+                  border: '1px solid var(--border-color)',
+                  backgroundColor: 'rgba(28, 27, 26, 0.02)',
+                  marginLeft: '0.25rem',
+                }}
+                title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`}
+                aria-label="Toggle Theme"
+              >
+                {theme === 'light' ? <Moon size={16} /> : <Sun size={16} />}
+              </motion.button>
             </motion.div>
           )}
         </AnimatePresence>

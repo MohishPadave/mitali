@@ -50,7 +50,8 @@
   padding: 0;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   overflow-x: hidden;
   background-color: var(--bg-primary);
@@ -81,13 +82,21 @@ html, body {
 }
 
 /* Headings typography mapping to screenshot styling */
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   font-family: var(--font-serif);
   font-weight: 500;
   line-height: 1.15;
 }
 
-p, span, a, button, input, textarea {
+p,
+span,
+a,
+button,
+input,
+textarea {
   font-family: var(--font-sans);
 }
 
@@ -122,6 +131,7 @@ button {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -132,10 +142,13 @@ button {
 }
 
 @keyframes pulse-slow {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
     transform: scale(1);
   }
+
   50% {
     opacity: 0.6;
     transform: scale(0.95);
@@ -147,9 +160,12 @@ button {
 }
 
 @keyframes pulse-glow {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow: 0 0 0 0 rgba(46, 189, 89, 0.4);
   }
+
   50% {
     box-shadow: 0 0 12px 4px rgba(46, 189, 89, 0.2);
   }
@@ -198,51 +214,115 @@ button {
   transform: translateY(0);
 }
 
-/* Custom Interactive Theme & Scroll Dot */
-.floating-side-dot {
-  position: fixed;
-  right: 3rem;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 100;
-  width: 44px;
-  height: 44px;
-  border: 1px solid var(--text-primary);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: var(--transition-smooth);
-}
 
-.floating-side-dot::after {
-  content: '';
-  width: 6px;
-  height: 6px;
-  background-color: var(--text-primary);
-  border-radius: 50%;
-  transition: var(--transition-smooth);
-}
 
-.floating-side-dot:hover {
-  transform: translateY(-50%) scale(1.1);
-  border-color: var(--accent-orange);
-  background-color: var(--card-bg);
-}
-
-.floating-side-dot:hover::after {
-  background-color: var(--accent-orange);
-  transform: scale(1.5);
-}
-
-@media (max-width: 1024px) {
-  .floating-side-dot {
-    right: 1.5rem;
+/* Custom Cursor Styles */
+@media (pointer: fine) {
+  /* Hide default system cursor globally on desktop */
+  *, *::before, *::after {
+    cursor: none !important;
   }
-}
 
-@media (max-width: 640px) {
-  .floating-side-dot {
-    display: none; /* Hide on mobile to prevent clutter */
+  /* Animated parent container */
+  .custom-cursor-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    z-index: 99999;
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+  }
+
+  .custom-cursor-container.visible {
+    opacity: 1;
+  }
+
+  /* Dot & Ring Base Styles (absolutely positioned inside 0x0 container) */
+  .custom-cursor-dot,
+  .custom-cursor-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+                width 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+                height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                border-radius 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Dot Styling (Inner) */
+  .custom-cursor-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--accent-orange);
+  }
+
+  /* Ring Styling (Outer) */
+  .custom-cursor-ring {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--text-primary);
+    background-color: transparent;
+    opacity: 0.6;
+  }
+
+  /* Hover state styles */
+  .custom-cursor-container.cursor-hover .custom-cursor-ring {
+    width: 50px;
+    height: 50px;
+    border-color: var(--accent-orange);
+    background-color: rgba(229, 151, 64, 0.05); /* very soft orange glow */
+    opacity: 0.85;
+  }
+
+  .custom-cursor-container.cursor-hover .custom-cursor-dot {
+    transform: translate(-50%, -50%) scale(1.5);
+    background-color: var(--accent-orange-hover);
+  }
+
+  /* Click (Active) state styles */
+  .custom-cursor-container.cursor-active .custom-cursor-ring {
+    width: 24px;
+    height: 24px;
+    border-color: var(--accent-orange-hover);
+    background-color: rgba(229, 151, 64, 0.2);
+    opacity: 0.95;
+  }
+
+  .custom-cursor-container.cursor-active .custom-cursor-dot {
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+
+  /* Text Input state styles */
+  .custom-cursor-container.cursor-text .custom-cursor-ring {
+    opacity: 0; /* Hide outer ring on text inputs for focus */
+  }
+
+  .custom-cursor-container.cursor-text .custom-cursor-dot {
+    width: 2px;
+    height: 18px;
+    border-radius: 1px;
+    background-color: var(--text-primary);
+  }
+
+  /* Not Allowed state styles */
+  .custom-cursor-container.cursor-not-allowed .custom-cursor-ring {
+    width: 36px;
+    height: 36px;
+    border-color: #ef4444;
+    background-color: rgba(239, 68, 68, 0.1);
+    opacity: 0.8;
+  }
+
+  .custom-cursor-container.cursor-not-allowed .custom-cursor-dot {
+    background-color: #ef4444;
+    transform: translate(-50%, -50%) scale(0.8);
   }
 }

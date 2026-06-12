@@ -1,12 +1,9 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles } from 'lucide-react';
-import komalPortrait from '../assets/komal_headshot.png';
-import projBiodiversity from '../assets/project_biodiversity.png';
-import projDataViz from '../assets/project_data_viz.png';
-import anushaPortrait from '../assets/anusha_portrait.png';
-import rashmiPortrait from '../assets/rashmi_portrait.png';
-import sidharthPortrait from '../assets/sidharth_portrait.png';
+import { ArrowRight } from 'lucide-react';
+import mitaliPortrait from '../assets/mitali.jpg';
+import dashboard1 from '../assets/dashboard1.jpg';
+import dashboard2 from '../assets/dashboard2.jpg';
 
 // GIZ India Spinner component mapping the screenshot visual
 function GizSpinner() {
@@ -36,93 +33,24 @@ export default function Home({ setActivePage }) {
   // Mock data for featured projects
   const featuredProjects = [
     {
-      id: 'biodiversity',
-      title: 'Biodiversity Monitoring Platform',
-      category: 'Interface & Data Design',
-      client: 'Indo-German Biodiversity Programme (GIZ)',
-      image: projBiodiversity,
-      tags: ['UX/UI', 'Data Viz', 'GIS Mapping', 'Dashboard']
-    },
-    {
-      id: 'dataviz',
-      title: 'Platform Analytics & Engagement',
+      id: 'banking-fraud-detection',
+      title: 'Banking Fraud Detection & Risk Monitoring Dashboard',
       category: 'Data Visualization',
-      client: 'Internal Product',
-      image: projDataViz,
-      tags: ['Dashboard', 'React', 'Figma', 'Interaction Design']
+      client: 'Retail Banking Division',
+      image: dashboard1,
+      tags: ['Power BI', 'Fraud Detection', 'Risk Analytics', 'Dashboard']
+    },
+    {
+      id: 'credit-card-portfolio',
+      title: 'Credit Card Portfolio & Spending Analytics Dashboard',
+      category: 'Dashboard Design',
+      client: 'Credit Card Portfolio Management',
+      image: dashboard2,
+      tags: ['Power BI', 'Portfolio Analytics', 'Customer Demographics']
     }
   ];
 
-  const testimonials = [
-    {
-      id: 'anusha',
-      name: 'Anusha Tripathi',
-      role: 'Product Designer-I @ Meesho',
-      text: 'Mitali is an incredible problem-solver with a strong human-centered approach. She dives deep into understanding real user problems and consistently brings valuable insights to the table. She is thoughtful and empathetic, and balances aesthetics with strong functionality and attention to detail.\n\nShe is also a reliable and generous collaborator, always adding depth and clarity to team projects. During our time at NID, I had the privilege of closely witnessing her growth as a designer, and I truly believe she would be a valuable addition to any design team, both as a sharp thinker and a reliable teammate.',
-      subtext: 'Anusha and Mitali studied together @NID Bengaluru, 2023-2026',
-      image: anushaPortrait,
-    },
-    {
-      id: 'rashmi',
-      name: 'Rashmi Bhardwaj',
-      role: 'Designer @ SAP',
-      text: 'I worked with Mitali as a peer designer, and I was consistently impressed by the depth of her critical thinking and the fidelity of her design work. She has a strong ability to translate research insights into clear, intuitive UX flows. Her visual prototyping skills stand out in particular, bringing clarity to complex interfaces.\n\nBeyond her technical strengths, she is an incredibly empathetic and reliable collaborator who elevates every project she touches. I highly recommend working with her!',
-      subtext: 'Rashmi and Mitali studied together @NID Bengaluru, 2023-2026',
-      image: rashmiPortrait,
-    },
-    {
-      id: 'sidharth',
-      name: 'Sidharth Mehta',
-      role: 'UX Researcher @ Google',
-      text: "Mitali's talent for information design is exceptional. She has a unique ability to make complex data sets not only readable but engaging. During our collaborations, her attention to detail and user-centric approach were vital to our success. She balances aesthetics with functional, data-led logic beautifully.\n\nShe is a dedicated, thoughtful designer and a brilliant teammate who will bring great value to any team.",
-      subtext: 'Sidharth and Mitali collaborated on dashboard research, 2025',
-      image: sidharthPortrait,
-    },
-    {
-      id: 'divya',
-      name: 'Divya Nair',
-      role: 'Visual Lead @ Groww',
-      text: 'Mitali has an exceptional ability to synthesize complex operational data into clean, delightful graphics. Her illustrations bring a warm, human touch to our financial user interfaces, making data interpretation natural and engaging. She is collaborative, receptive, and very detail-oriented.',
-      subtext: 'Divya and Mitali collaborated on interactive branding, 2024',
-      image: anushaPortrait,
-    },
-    {
-      id: 'kabir',
-      name: 'Kabir Verma',
-      role: 'Interaction Designer @ Razorpay',
-      text: 'Working with Mitali on dashboard visual designs was an absolute pleasure. She brings a rare combination of visual mastery and logical mapping. She is structured, fast, and constantly pushes the boundaries of clean interface design. Her NID training shows in her strong foundational skills.',
-      subtext: 'Kabir and Mitali designed merchant analytical layouts, 2024-2025',
-      image: sidharthPortrait,
-    },
-    {
-      id: 'priya',
-      name: 'Priya Iyer',
-      role: 'UX Designer @ CRED',
-      text: 'Mitali excels at bringing a playful yet highly polished design language to digital products. Her attention to micro-animations, layout consistency, and typography makes her work feel incredibly premium. She is an invaluable asset to any experience design team.',
-      subtext: 'Priya and Mitali worked on gamified payment widgets, 2025',
-      image: rashmiPortrait,
-    }
-  ];
-
-  const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const [currentIndex, setCurrentIndex] = useState(1);
-  const [isTransitioning, setIsTransitioning] = useState(true);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
-
-  const extendedTestimonials = [
-    testimonials[testimonials.length - 1],
-    ...testimonials,
-    testimonials[0]
-  ];
-
-  // Auto-play interval shifting left every 3 seconds
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setIsTransitioning(true);
-      setCurrentIndex((prev) => prev + 1);
-    }, 3000);
-    return () => clearInterval(timer);
-  }, [testimonials.length]);
 
   // Update width on resize for layout computations
   useEffect(() => {
@@ -130,30 +58,6 @@ export default function Home({ setActivePage }) {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
-  const handleTransitionEnd = () => {
-    if (currentIndex === extendedTestimonials.length - 1) {
-      setIsTransitioning(false);
-      setCurrentIndex(1);
-      setActiveTestimonial(0);
-    } else if (currentIndex === 0) {
-      setIsTransitioning(false);
-      setCurrentIndex(testimonials.length);
-      setActiveTestimonial(testimonials.length - 1);
-    } else {
-      setActiveTestimonial(currentIndex - 1);
-    }
-  };
-
-  const handleDotClick = (index) => {
-    setIsTransitioning(true);
-    setCurrentIndex(index + 1);
-    setActiveTestimonial(index);
-  };
-
-  const cardWidth = windowWidth < 768 ? windowWidth - 40 : 640;
-  const gap = 32; // 2rem
-  const translateOffset = (windowWidth / 2) - (cardWidth / 2) - (currentIndex * (cardWidth + gap));
 
   return (
     <div style={{ width: '100%' }}>
@@ -196,32 +100,32 @@ export default function Home({ setActivePage }) {
               <span>Hey, I'm</span>
               <span className="text-orange">Mitali Waingankar</span>
               
-              {/* B&W avatar nestled in text */}
+              {/* Avatar nestled in text */}
               <motion.div
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 style={{
-                  width: '54px',
-                  height: '54px',
+                  width: '100px',
+                  height: '100px',
                   borderRadius: '50%',
                   overflow: 'hidden',
                   display: 'inline-block',
                   verticalAlign: 'middle',
-                  border: '1.5px solid var(--border-color)',
+                  border: '2px solid var(--border-color)',
                   backgroundColor: '#f3f0ec',
                   boxShadow: '0 4px 10px rgba(0,0,0,0.05)',
                   cursor: 'pointer'
                 }}
               >
                 <img 
-                  src={komalPortrait} 
+                  src={mitaliPortrait} 
                   alt="Mitali" 
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(100%) contrast(1.05)' }} 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
                 />
               </motion.div>
             </div>
 
-            {/* Row 2: Information & Experience Designer */}
-            <span className="text-orange">Information & Experience Designer</span>
+            {/* Row 2: Aspiring Data Analyst & Creative Problem Solver */}
+            <span className="text-orange">Aspiring Data Analyst & Creative Problem Solver</span>
 
             {/* Row 3: I create data-led interface & visual products */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
@@ -295,7 +199,7 @@ export default function Home({ setActivePage }) {
       {/* Selected Projects Showcase */}
       <section 
         style={{
-          padding: '6rem 0',
+          padding: '6rem 0 8rem 0',
           backgroundColor: 'var(--bg-secondary)',
           borderTop: '1px solid var(--border-color)',
         }}
@@ -430,184 +334,6 @@ export default function Home({ setActivePage }) {
             ))}
           </div>
 
-        </div>
-      </section>
-
-      {/* Testimonials Slider Section */}
-      <section 
-        style={{
-          padding: '6rem 0 8rem 0',
-          backgroundColor: 'var(--bg-primary)',
-          borderTop: '1px solid var(--border-color)',
-          overflow: 'hidden',
-          width: '100%',
-          position: 'relative'
-        }}
-      >
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '3.5rem' }}>
-          {/* Rotated Purple square badge */}
-          <div 
-            style={{
-              width: '32px',
-              height: '32px',
-              backgroundColor: '#a3a3ec',
-              transform: 'rotate(45deg)',
-              borderRadius: '6px',
-              marginBottom: '1.25rem',
-              boxShadow: '0 4px 15px rgba(163, 163, 236, 0.4)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          />
-          <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-tertiary)', letterSpacing: '0.15em', display: 'block', marginBottom: '0.5rem' }}>
-            FEEDBACK
-          </span>
-          <h2 style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)', color: 'var(--text-primary)', maxWidth: '600px', lineHeight: 1.25 }}>
-            People who motivate me to <br />
-            <span className="text-orange">keep up the momentum</span>
-          </h2>
-        </div>
-
-        {/* Testimonial Cards Carousel Container */}
-        <div style={{ position: 'relative', width: '100%', overflow: 'visible' }}>
-          <div
-            onTransitionEnd={handleTransitionEnd}
-            style={{
-              display: 'flex',
-              gap: `${gap}px`,
-              width: 'max-content',
-              transform: `translateX(${translateOffset}px)`,
-              transition: isTransitioning ? 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)' : 'none',
-              padding: '1rem 0'
-            }}
-          >
-            {extendedTestimonials.map((test, index) => {
-              const isActive = index === currentIndex;
-              return (
-                <div
-                  key={`${test.id}-${index}`}
-                  onClick={() => {
-                    setIsTransitioning(true);
-                    setCurrentIndex(index);
-                  }}
-                  style={{
-                    width: `${cardWidth}px`,
-                    backgroundColor: 'var(--card-bg)',
-                    borderRadius: '24px',
-                    border: isActive ? '1px solid rgba(229, 151, 64, 0.25)' : '1px solid var(--border-color)',
-                    padding: windowWidth < 768 ? '1.75rem' : '2.5rem',
-                    boxShadow: isActive ? '0 12px 40px rgba(0, 0, 0, 0.05)' : 'var(--card-shadow)',
-                    opacity: isActive ? 1 : 0.25,
-                    transform: isActive ? 'scale(1)' : 'scale(0.96)',
-                    filter: isActive ? 'blur(0px)' : 'blur(1.5px)',
-                    transition: 'opacity 0.6s, transform 0.6s, filter 0.6s, border-color 0.6s, box-shadow 0.6s',
-                    cursor: 'pointer',
-                    position: 'relative',
-                    textAlign: 'left',
-                    userSelect: 'none',
-                    display: 'flex',
-                    flexDirection: 'column',
-                  }}
-                >
-                  {/* Reviewer Header */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <div 
-                      style={{
-                        width: '50px',
-                        height: '50px',
-                        borderRadius: '50%',
-                        overflow: 'hidden',
-                        border: '1.5px solid var(--border-color)',
-                        backgroundColor: '#f3f0ec'
-                      }}
-                    >
-                      <img 
-                        src={test.image} 
-                        alt={test.name} 
-                        style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(100%) contrast(1.05)' }} 
-                      />
-                    </div>
-                    <div>
-                      <h4 style={{ fontSize: '1.05rem', fontWeight: 600, color: 'var(--text-primary)' }}>
-                        {test.name}
-                      </h4>
-                      <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-                        {test.role}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Testimony Text */}
-                  <p 
-                    style={{
-                      fontSize: '0.925rem',
-                      color: 'var(--text-secondary)',
-                      lineHeight: 1.6,
-                      margin: '1.5rem 0 2rem 0',
-                      whiteSpace: 'pre-line'
-                    }}
-                  >
-                    {test.text}
-                  </p>
-
-                  {/* Subtext info */}
-                  <span style={{ fontSize: '0.78rem', color: 'var(--text-tertiary)', marginTop: 'auto' }}>
-                    {test.subtext}
-                  </span>
-
-                  {/* Floating Circle Dot (Bottom Right Corner of active card) */}
-                  {isActive && (
-                    <div 
-                      style={{
-                        position: 'absolute',
-                        bottom: '2rem',
-                        right: '2rem',
-                        width: '28px',
-                        height: '28px',
-                        border: '1px solid var(--text-primary)',
-                        borderRadius: '50%',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <span 
-                        style={{
-                          width: '5px',
-                          height: '5px',
-                          backgroundColor: 'var(--text-primary)',
-                          borderRadius: '50%',
-                        }}
-                      />
-                    </div>
-                  )}
-
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Indicators Dots */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', marginTop: '3rem' }}>
-          {testimonials.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => handleDotClick(index)}
-              style={{
-                width: activeTestimonial === index ? '18px' : '8px',
-                height: '8px',
-                borderRadius: '9999px',
-                backgroundColor: activeTestimonial === index ? 'var(--text-primary)' : 'var(--border-color)',
-                transition: 'var(--transition-fast)',
-                padding: 0,
-                border: 'none',
-                cursor: 'pointer'
-              }}
-              title={`Go to slide ${index + 1}`}
-            />
-          ))}
         </div>
       </section>
     </div>
