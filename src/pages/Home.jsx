@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Lightbulb, Palette, TrendingUp, Sprout } from 'lucide-react';
+import mitaliPortrait from '../assets/mitali.jpg';
 import dashboard1 from '../assets/dashboard1.jpg';
 import dashboard2 from '../assets/dashboard2.jpg';
 
@@ -53,17 +54,81 @@ export default function Home({ setActivePage }) {
       >
         <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           
-          {/* Main Hero Header Statement */}
-          <motion.h1
+          {/* Greeting Statement */}
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="hero-title"
+            style={{
+              fontSize: 'clamp(1.8rem, 4.5vw, 3.2rem)',
+              color: 'var(--text-primary)',
+              lineHeight: 1.25,
+              fontWeight: 500,
+              maxWidth: '920px',
+              textAlign: 'center',
+              marginBottom: '1.75rem',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '0.2rem'
+            }}
           >
-            Hey, I'm <span className="text-orange">Mitali Waingankar</span>.<br className="desktop-only-br" />
-            <span className="text-orange">Aspiring Data Analyst & Creative Problem Solver</span>.<br className="desktop-only-br" />
-            I create data-led <span className="text-orange">interface & visual products</span>.
-          </motion.h1>
+            <span>Hey, I'm</span>
+            <span className="text-orange" style={{ fontWeight: 600 }}>Mitali Waingankar</span>
+          </motion.div>
+
+          {/* Centered Circular Portrait */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.15, ease: 'easeOut' }}
+            whileHover={{ scale: 1.05 }}
+            style={{
+              width: 'clamp(110px, 15vw, 140px)',
+              height: 'clamp(110px, 15vw, 140px)',
+              borderRadius: '50%',
+              overflow: 'hidden',
+              border: '2px solid var(--border-color)',
+              backgroundColor: 'var(--card-bg)',
+              boxShadow: 'var(--card-shadow)',
+              marginBottom: '2rem',
+              cursor: 'pointer',
+              flexShrink: 0
+            }}
+          >
+            <img 
+              src={mitaliPortrait} 
+              alt="Mitali Waingankar" 
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+            />
+          </motion.div>
+
+          {/* Main Hero Subtitle Statements */}
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.25, ease: 'easeOut' }}
+            style={{
+              fontSize: 'clamp(1.3rem, 3.5vw, 2.2rem)',
+              color: 'var(--text-primary)',
+              lineHeight: 1.35,
+              fontWeight: 500,
+              maxWidth: '920px',
+              textAlign: 'center',
+              marginBottom: '2.5rem',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '0.8rem'
+            }}
+          >
+            <span className="text-orange" style={{ fontWeight: 600 }}>
+              Aspiring Data Analyst & Creative Problem Solver
+            </span>
+            <span>
+              I create data-led <span className="text-orange" style={{ fontWeight: 600 }}>interface & visual products</span>
+            </span>
+          </motion.div>
 
           {/* 4 Feature Cards Grid */}
           <motion.div
