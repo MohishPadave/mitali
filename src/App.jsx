@@ -19,7 +19,7 @@ function App() {
 
   // Scroll to top on page navigation
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [activePage]);
 
   // Render the current active view
@@ -65,7 +65,7 @@ function App() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -15 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            style={{ width: '100%', display: 'flex', flexDirection: 'column', flexGrow: 1 }}
+            style={{ width: '100%', display: 'flex', flexDirection: 'column', flexGrow: 1, minHeight: '80vh' }}
           >
             {renderPage()}
           </motion.div>
