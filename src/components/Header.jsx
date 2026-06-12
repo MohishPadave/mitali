@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Home, Folder, User, Mail, Menu, Sun, Moon } from 'lucide-react';
 import { useScrollPosition } from '../hooks/useScrollPosition';
-import headerLogo from '../assets/header_logo.png';
 
 export default function Header({ activePage, setActivePage, theme, toggleTheme }) {
   const { isScrolled } = useScrollPosition(50);
@@ -71,32 +70,21 @@ export default function Header({ activePage, setActivePage, theme, toggleTheme }
           cursor: 'pointer',
         }}
       >
-        {/* Brand Logo - always visible */}
+        {/* Menu Icon - always visible */}
         <motion.div 
           layout
           style={{
             width: '36px',
             height: '36px',
             borderRadius: '50%',
-            overflow: 'hidden',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: '#ffffff',
-            border: '1px solid rgba(0,0,0,0.05)',
+            color: 'var(--text-secondary)',
             flexShrink: 0,
           }}
         >
-          <img 
-            src={headerLogo} 
-            alt="Logo" 
-            style={{ 
-              width: '160%', // Scaled up slightly to hide margins
-              height: '160%',
-              objectFit: 'cover',
-              transform: 'translateY(-1px)' // visual adjustments
-            }} 
-          />
+          <Menu size={18} strokeWidth={2} />
         </motion.div>
 
         {/* Animated Navigation Items */}
@@ -214,15 +202,13 @@ export default function Header({ activePage, setActivePage, theme, toggleTheme }
                 fontSize: '0.75rem',
                 fontWeight: 600,
                 color: 'var(--text-secondary)',
-                paddingLeft: '0.25rem',
-                paddingRight: '0.5rem',
+                paddingLeft: '0.1rem',
+                paddingRight: '0.6rem',
                 whiteSpace: 'nowrap',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '4px'
               }}
             >
-              <span>•</span>
               <span>Menu</span>
             </motion.div>
           )}
