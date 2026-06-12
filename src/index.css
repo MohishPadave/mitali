@@ -365,3 +365,62 @@ button {
     justify-content: center;
   }
 }
+
+/* Hero Feature Cards styling */
+.hero-feature-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem 2rem;
+  border-radius: 100px;
+  text-align: left;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.01);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-feature-card div {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Card 1 - Gold/Orange */
+.feature-card-1 {
+  background-color: #fffaf4;
+  border: 1px solid #fce8d5;
+}
+[data-theme="dark"] .feature-card-1 {
+  background-color: rgba(229, 151, 64, 0.08);
+  border: 1px solid rgba(229, 151, 64, 0.2);
+}
+
+/* Card 2 - Green */
+.feature-card-2 {
+  background-color: #f4fbf6;
+  border: 1px solid #e1f7e7;
+}
+[data-theme="dark"] .feature-card-2 {
+  background-color: rgba(46, 189, 89, 0.08);
+  border: 1px solid rgba(46, 189, 89, 0.2);
+}
+
+/* Card 3 - Purple */
+.feature-card-3 {
+  background-color: #faf8ff;
+  border: 1px solid #eef2ff;
+}
+[data-theme="dark"] .feature-card-3 {
+  background-color: rgba(139, 92, 246, 0.08);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+/* Card 4 - Blue */
+.feature-card-4 {
+  background-color: #f0f7ff;
+  border: 1px solid #e0f2fe;
+}
+[data-theme="dark"] .feature-card-4 {
+  background-color: rgba(2, 132, 199, 0.08);
+  border: 1px solid rgba(2, 132, 199, 0.2);
+}

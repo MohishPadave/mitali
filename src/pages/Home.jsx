@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
-import mitaliPortrait from '../assets/mitali.jpg';
+import { ArrowRight, Lightbulb, Palette, TrendingUp, Sprout } from 'lucide-react';
 import dashboard1 from '../assets/dashboard1.jpg';
 import dashboard2 from '../assets/dashboard2.jpg';
 
@@ -95,33 +94,10 @@ export default function Home({ setActivePage }) {
               gap: '0.5rem',
             }}
           >
-            {/* Row 1: Hey, I'm Mitali Waingankar [Avatar] */}
+            {/* Row 1: Hey, I'm Mitali Waingankar */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.8rem', flexWrap: 'wrap' }}>
               <span>Hey, I'm</span>
               <span className="text-orange">Mitali Waingankar</span>
-              
-              {/* Avatar nestled in text */}
-              <motion.div
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                style={{
-                  width: '100px',
-                  height: '100px',
-                  borderRadius: '50%',
-                  overflow: 'hidden',
-                  display: 'inline-block',
-                  verticalAlign: 'middle',
-                  border: '2px solid var(--border-color)',
-                  backgroundColor: '#f3f0ec',
-                  boxShadow: '0 4px 10px rgba(0,0,0,0.05)',
-                  cursor: 'pointer'
-                }}
-              >
-                <img 
-                  src={mitaliPortrait} 
-                  alt="Mitali" 
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-                />
-              </motion.div>
             </div>
 
             {/* Row 2: Aspiring Data Analyst & Creative Problem Solver */}
@@ -132,6 +108,66 @@ export default function Home({ setActivePage }) {
               <span>I create data-led</span>
               <span className="text-orange">interface & visual products</span>
             </div>
+          </motion.div>
+
+          {/* 4 Feature Cards Grid */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: '1.25rem',
+              width: '100%',
+              maxWidth: '720px',
+              marginBottom: '3rem',
+              marginTop: '1rem'
+            }}
+          >
+            {/* Card 1 */}
+            <motion.div
+              whileHover={{ scale: 1.03, y: -2 }}
+              className="hero-feature-card feature-card-1"
+            >
+              <Lightbulb size={28} style={{ color: 'var(--accent-orange)', flexShrink: 0 }} />
+              <div>
+                Exploring ideas through data & design
+              </div>
+            </motion.div>
+
+            {/* Card 2 */}
+            <motion.div
+              whileHover={{ scale: 1.03, y: -2 }}
+              className="hero-feature-card feature-card-2"
+            >
+              <Palette size={28} style={{ color: 'var(--accent-green)', flexShrink: 0 }} />
+              <div>
+                Designing interfaces & visual stories
+              </div>
+            </motion.div>
+
+            {/* Card 3 */}
+            <motion.div
+              whileHover={{ scale: 1.03, y: -2 }}
+              className="hero-feature-card feature-card-3"
+            >
+              <TrendingUp size={28} style={{ color: '#8b5cf6', flexShrink: 0 }} />
+              <div>
+                Turning complex data into clear insights
+              </div>
+            </motion.div>
+
+            {/* Card 4 */}
+            <motion.div
+              whileHover={{ scale: 1.03, y: -2 }}
+              className="hero-feature-card feature-card-4"
+            >
+              <Sprout size={28} style={{ color: '#0284c7', flexShrink: 0 }} />
+              <div>
+                Curious learner, growth-focused creator
+              </div>
+            </motion.div>
           </motion.div>
 
           {/* GIZ Indicator Box */}
