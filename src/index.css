@@ -424,3 +424,57 @@ button {
   background-color: rgba(2, 132, 199, 0.08);
   border: 1px solid rgba(2, 132, 199, 0.2);
 }
+
+/* Hero Section Typography & Grid Responsiveness */
+.hero-title {
+  font-size: clamp(1.8rem, 4.5vw, 3.5rem);
+  color: var(--text-primary);
+  line-height: 1.25;
+  font-weight: 500;
+  max-width: 920px;
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.desktop-only-br {
+  display: block;
+}
+
+.hero-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 720px;
+  margin-bottom: 3rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: clamp(1.6rem, 5vw, 2.25rem);
+    line-height: 1.3;
+    margin-bottom: 1.75rem;
+  }
+
+  .desktop-only-br {
+    display: none;
+  }
+
+  .hero-cards-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 580px) {
+  .hero-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .hero-feature-card {
+    padding: 1rem 1.25rem;
+    border-radius: 20px;
+  }
+}

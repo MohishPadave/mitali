@@ -45,7 +45,7 @@ export default function Home({ setActivePage }) {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '8rem 2rem 4rem 2rem',
+          padding: '8rem 0 4rem 0',
           textAlign: 'center',
           backgroundColor: 'var(--bg-primary)',
           position: 'relative'
@@ -54,53 +54,23 @@ export default function Home({ setActivePage }) {
         <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           
           {/* Main Hero Header Statement */}
-          <motion.div
+          <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
-            style={{
-              fontSize: 'clamp(2rem, 5vw, 4rem)',
-              color: 'var(--text-primary)',
-              lineHeight: 1.2,
-              fontWeight: 500,
-              maxWidth: '920px',
-              marginBottom: '2.5rem',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '0.5rem',
-            }}
+            className="hero-title"
           >
-            {/* Row 1: Hey, I'm Mitali Waingankar */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.8rem', flexWrap: 'wrap' }}>
-              <span>Hey, I'm</span>
-              <span className="text-orange">Mitali Waingankar</span>
-            </div>
-
-            {/* Row 2: Aspiring Data Analyst & Creative Problem Solver */}
-            <span className="text-orange">Aspiring Data Analyst & Creative Problem Solver</span>
-
-            {/* Row 3: I create data-led interface & visual products */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-              <span>I create data-led</span>
-              <span className="text-orange">interface & visual products</span>
-            </div>
-          </motion.div>
+            Hey, I'm <span className="text-orange">Mitali Waingankar</span>.<br className="desktop-only-br" />
+            <span className="text-orange">Aspiring Data Analyst & Creative Problem Solver</span>.<br className="desktop-only-br" />
+            I create data-led <span className="text-orange">interface & visual products</span>.
+          </motion.h1>
 
           {/* 4 Feature Cards Grid */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: '1.25rem',
-              width: '100%',
-              maxWidth: '720px',
-              marginBottom: '3rem',
-              marginTop: '1rem'
-            }}
+            className="hero-cards-grid"
           >
             {/* Card 1 */}
             <motion.div
