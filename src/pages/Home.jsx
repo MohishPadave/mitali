@@ -198,7 +198,20 @@ export default function Home({ setActivePage }) {
             </button>
           </motion.div>
 
-
+          {/* Subtext note */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.7 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            style={{
+              fontSize: '0.85rem',
+              color: 'var(--text-secondary)',
+              maxWidth: '400px',
+              lineHeight: 1.5,
+            }}
+          >
+            Part analyst, part storyteller, always learning.
+          </motion.p>
         </div>
       </section>
 
