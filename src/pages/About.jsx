@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Briefcase, GraduationCap, PenTool, Layout, Eye, Code, Download } from 'lucide-react';
-import mitaliPortrait from '../assets/mitali.jpg';
+import mitaliPortrait from '../assets/mitali2.jpg';
 
 export default function About() {
   const experiences = [

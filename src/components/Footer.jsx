@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Mail } from 'lucide-react';
-import mitaliPortrait from '../assets/mitali.jpg';
+import mitaliPortrait from '../assets/mitali2.jpg';
 
 // Custom LinkedIn Icon Component
 function LinkedinIcon({ size = 18 }) {

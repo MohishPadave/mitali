@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Lightbulb, Palette, TrendingUp, Sprout } from 'lucide-react';
-import mitaliPortrait from '../assets/mitali.jpg';
+import mitaliPortrait from '../assets/mitali2.jpg';
 import dashboard1 from '../assets/dashboard1.jpg';
 import dashboard2 from '../assets/dashboard2.jpg';
 
