@@ -6,24 +6,54 @@ export default function About() {
   const experiences = [
     {
       type: 'work',
-      title: 'Business & Data Analyst Developer',
-      organization: 'Independent Projects & Studies',
-      period: '2024 - Present',
-      description: 'Designing interactive BI dashboards in Power BI and Tableau. Performing exploratory data analysis using Python (Pandas/Seaborn). Uncovering insights from retail performance, consumer behavior, and sales datasets.'
-    },
-    {
-      type: 'education',
-      title: 'Studies in Business Intelligence & Analytics',
-      organization: 'Specialized Courses & Certifications',
-      period: '2022 - 2024',
-      description: 'Focused on statistical modeling, database querying (SQL), and analytical storytelling. Developed projects on sales optimization and audience engagement modeling.'
+      title: 'Business Development Intern',
+      organization: 'PhillipCapital (India) Pvt. Ltd.',
+      period: 'Oct 2025 – Dec 2025',
+      description: [
+        'Analyzed 850+ investor records using Excel',
+        'Maintained segmented databases',
+        'Tracked outreach performance metrics',
+        'Supported data-driven campaign decisions'
+      ]
     },
     {
       type: 'work',
-      title: 'Operations & Data Coordinator',
-      organization: 'Freelance Projects',
-      period: '2020 - 2022',
-      description: 'Managed spreadsheet-based tracking systems, designed custom Excel reports, and conducted market analysis to support localized business decisions.'
+      title: 'Marketing Head',
+      organization: 'Beyond Meds Foundation (NGO)',
+      period: 'Dec 2021 - Mar 2022',
+      description: [
+        'Led and managed a team of marketing interns, overseeing campaign execution and content strategy',
+        'Analyzed Meta Ads performance metrics (reach, engagement, CTR) to optimize targeting and campaign effectiveness',
+        'Improved digital engagement and visibility through data-driven marketing strategies'
+      ]
+    },
+    {
+      type: 'education',
+      title: 'PGDM',
+      organization: 'Athena School of Management',
+      period: 'Pursuing',
+      description: ''
+    },
+    {
+      type: 'education',
+      title: 'BMS',
+      organization: 'University of Mumbai, Thane Sub Campus',
+      period: 'Graduated',
+      description: ''
+    },
+    {
+      type: 'education',
+      title: 'Class XII',
+      organization: 'Lodha World School',
+      period: 'Completed',
+      description: ''
+    },
+    {
+      type: 'education',
+      title: 'Class X',
+      organization: 'Pawar Public School',
+      period: 'Completed',
+      description: ''
     }
   ];
 
@@ -297,9 +327,19 @@ export default function About() {
                   <span>{exp.organization}</span>
                 </div>
 
-                <p style={{ fontSize: '0.925rem', color: 'var(--text-secondary)', lineHeight: 1.5, marginTop: '0.4rem' }}>
-                  {exp.description}
-                </p>
+                {exp.description && (
+                  Array.isArray(exp.description) ? (
+                    <ul style={{ paddingLeft: '1.25rem', margin: '0.5rem 0 0 0', listStyleType: 'disc', color: 'var(--text-secondary)', fontSize: '0.925rem', lineHeight: 1.6 }}>
+                      {exp.description.map((bullet, idx) => (
+                        <li key={idx} style={{ marginBottom: '0.4rem' }}>{bullet}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p style={{ fontSize: '0.925rem', color: 'var(--text-secondary)', lineHeight: 1.5, marginTop: '0.4rem' }}>
+                      {exp.description}
+                    </p>
+                  )
+                )}
               </motion.div>
             ))}
           </div>
