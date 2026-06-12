@@ -170,7 +170,7 @@ export default function Home({ setActivePage }) {
             style={{ marginBottom: '2.5rem' }}
           >
             <button 
-              className="btn-primary" 
+              className="btn-orange" 
               onClick={() => setActivePage('contact')}
               style={{ padding: '1rem 2.5rem', fontSize: '1rem', gap: '0.5rem' }}
             >
