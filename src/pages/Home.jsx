@@ -83,8 +83,8 @@ export default function Home({ setActivePage }) {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.15, ease: 'easeOut' }}
             style={{
-              width: 'clamp(110px, 15vw, 140px)',
-              height: 'clamp(110px, 15vw, 140px)',
+              width: 'clamp(150px, 22vw, 190px)',
+              height: 'clamp(150px, 22vw, 190px)',
               borderRadius: '50%',
               overflow: 'hidden',
               border: '2px solid var(--border-color)',
@@ -98,7 +98,7 @@ export default function Home({ setActivePage }) {
             <img 
               src={mitaliPortrait} 
               alt="Mitali Waingankar" 
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+              style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} 
             />
           </motion.div>
 
