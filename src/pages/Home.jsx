@@ -82,7 +82,6 @@ export default function Home({ setActivePage }) {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.15, ease: 'easeOut' }}
-            whileHover={{ scale: 1.05 }}
             style={{
               width: 'clamp(110px, 15vw, 140px)',
               height: 'clamp(110px, 15vw, 140px)',
@@ -92,7 +91,7 @@ export default function Home({ setActivePage }) {
               backgroundColor: 'var(--card-bg)',
               boxShadow: 'var(--card-shadow)',
               marginBottom: '2rem',
-              cursor: 'pointer',
+              cursor: 'default',
               flexShrink: 0
             }}
           >
