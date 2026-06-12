@@ -4,29 +4,6 @@ import { ArrowRight, Lightbulb, Palette, TrendingUp, Sprout } from 'lucide-react
 import dashboard1 from '../assets/dashboard1.jpg';
 import dashboard2 from '../assets/dashboard2.jpg';
 
-// GIZ India Spinner component mapping the screenshot visual
-function GizSpinner() {
-  return (
-    <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '24px', height: '24px' }}>
-      <svg className="spin-slow" width="22" height="22" viewBox="0 0 24 24" style={{ filter: 'drop-shadow(0 0 2px rgba(46, 189, 89, 0.2))' }}>
-        {Array.from({ length: 12 }).map((_, i) => (
-          <line
-            key={i}
-            x1="12"
-            y1="3"
-            x2="12"
-            y2="7"
-            stroke="var(--accent-green)"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            transform={`rotate(${i * 30} 12 12)`}
-            style={{ opacity: 0.3 + (i % 4) * 0.25 }} // creates a stepping-gradient look
-          />
-        ))}
-      </svg>
-    </div>
-  );
-}
 
 export default function Home({ setActivePage }) {
   // Mock data for featured projects
@@ -168,34 +145,6 @@ export default function Home({ setActivePage }) {
                 Curious learner, growth-focused creator
               </div>
             </motion.div>
-          </motion.div>
-
-          {/* GIZ Indicator Box */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '0.75rem',
-              backgroundColor: 'var(--card-bg)',
-              border: '1px solid var(--border-color)',
-              padding: '0.75rem 1.5rem',
-              borderRadius: '100px',
-              fontSize: '0.95rem',
-              color: 'var(--text-secondary)',
-              boxShadow: 'var(--card-shadow)',
-              marginBottom: '3rem',
-              maxWidth: '560px'
-            }}
-          >
-            <span>Currently designing visual solutions for</span>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-primary)', fontWeight: 500 }}>
-              <GizSpinner />
-              <span style={{ fontSize: '0.9rem' }}>Indo-German Biodiversity Programme, @GIZ India.</span>
-            </div>
           </motion.div>
 
           {/* Connect CTA Button */}
