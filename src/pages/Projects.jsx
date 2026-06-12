@@ -4,6 +4,11 @@ import { X, ExternalLink, Calendar, Users, Eye } from 'lucide-react';
 import dashboard1 from '../assets/dashboard1.jpg';
 import dashboard2 from '../assets/dashboard2.jpg';
 import dashboard3 from '../assets/dashboard3.jpg';
+import dashboard4 from '../assets/dashboard4.jpg';
+import dashboard5 from '../assets/dashboard5.jpg';
+import dashboard6 from '../assets/dashboard6.jpg';
+import dashboard7 from '../assets/dashboard7.jpg';
+import dashboard8 from '../assets/dashboard8.jpg';
 
 export default function Projects() {
   const [filter, setFilter] = useState('All');
@@ -58,6 +63,76 @@ export default function Projects() {
       solution: 'This dashboard analyzes borrower demographics, financial characteristics, and risk indicators to evaluate credit risk across the loan portfolio. It supports data-driven lending decisions by highlighting borrower segments with higher default probability.',
       process: 'Calculated default risk correlations against borrower indicators like housing status, marital status, income, and geographical location. Designed credit scoring thresholds and interactive filter widgets to segment risk levels.',
       outcome: 'Revealed that approximately 12% of applicants were high-risk, and that housing status and state location were strong predictors of risk. Proven that income alone was not a sufficient predictor of default risk, highlighting the value of multi-factor credit assessment.'
+    },
+    {
+      id: 'sales-performance-analytics',
+      title: 'Sales & Retail Customer Performance Dashboard',
+      category: 'Dashboard Design',
+      client: 'Sales Operations & Strategy',
+      period: '2024',
+      image: dashboard4,
+      summary: 'A dynamic dashboard tracking sales revenue, profit margins, and regional customer growth metrics to optimize product distribution.',
+      tags: ['Power BI', 'Sales Analytics', 'Revenue Forecast', 'Customer Segmentation'],
+      challenge: 'Sales executives struggled to track regional performance and product profitability across diverse distribution channels in real-time, resulting in supply mismatches.',
+      solution: 'Created an interactive Power BI dashboard tracking sales KPI trends, gross margins, and growth metrics by region. It enables cross-filtering by customer segments and product types.',
+      process: 'Constructed a dimensional star-schema model in Power Query. Calculated Year-over-Year revenue growth using DAX time intelligence functions, and designed scatter plots for product margin analysis.',
+      outcome: 'Identified underperforming product lines in the Midwest and recommended reallocating marketing budgets. Increased regional sales efficiency and optimized stock distribution.'
+    },
+    {
+      id: 'supply-chain-inventory',
+      title: 'Supply Chain & Logistics Performance Dashboard',
+      category: 'Data Visualization',
+      client: 'Global Logistics & Operations',
+      period: '2023',
+      image: dashboard5,
+      summary: 'An operational dashboard monitoring shipping delays, warehouse inventory levels, and carrier transit times to streamline supply chain logistics.',
+      tags: ['Power BI', 'Supply Chain', 'Logistics', 'Inventory Management'],
+      challenge: 'Rising transit delays and warehouse inventory accumulation were increasing operational costs, with no unified platform to monitor carrier performance.',
+      solution: 'Designed an end-to-end logistics dashboard that highlights inventory turnover rates, shipping lead times, and carrier on-time delivery percentages.',
+      process: 'Cleaned raw shipping and inventory logs using Pandas, then imported the modeled data into Power BI. Designed custom warning cards using conditional formatting for delayed carrier metrics.',
+      outcome: 'Reduced average order-to-delivery cycle times and identified top-performing logistics partners, leading to renegotiated shipping contracts.'
+    },
+    {
+      id: 'hr-employee-engagement',
+      title: 'HR Analytics & Employee Retention Dashboard',
+      category: 'Dashboard Design',
+      client: 'People Operations & Talent Strategy',
+      period: '2023',
+      image: dashboard6,
+      summary: 'A human resources dashboard tracking employee attrition rates, recruitment efficiency, and department training progress.',
+      tags: ['Power BI', 'HR Analytics', 'Employee Engagement', 'Retention Analysis'],
+      challenge: 'High turnover rates in engineering and sales departments were leading to increased recruitment costs, but HR lacked metrics to target the root causes.',
+      solution: 'Developed an attrition and headcount forecasting dashboard providing views on exit interview themes, average tenure, and compensation competitiveness.',
+      process: 'Modeled employee lifecycle records in Excel and imported to Power BI. Built DAX measures for active headcount, hiring cycle velocity, and voluntary vs. involuntary attrition ratios.',
+      outcome: 'Identified critical attrition trends in mid-level tenure bands and recommended adjustment programs, stabilizing voluntary turnover.'
+    },
+    {
+      id: 'ecommerce-revenue-acquisition',
+      title: 'E-Commerce Customer Acquisition & Conversion Dashboard',
+      category: 'Data Visualization',
+      client: 'Digital Marketing & Growth Team',
+      period: '2024',
+      image: dashboard7,
+      summary: 'An acquisition funnel dashboard analyzing web conversion rates, customer lifetime value, and advertising campaign ROAS.',
+      tags: ['Tableau', 'Marketing Analytics', 'Conversion Funnel', 'Customer Lifetime Value'],
+      challenge: 'High marketing spend across multiple platforms was yielding inconsistent returns, with difficulties in attributing sales to specific campaign sources.',
+      solution: 'Designed a multi-channel attribution and acquisition dashboard showing conversion rates by ad network, cost-per-acquisition, and repeat-buyer rates.',
+      process: 'Integrated Meta Ads and Google Analytics API data. Built cohort retention graphs to analyze customer lifetime value over 12-month periods.',
+      outcome: 'Discovered that retargeting social campaigns yielded the highest return on ad spend (ROAS). Reallocated marketing budgets, reducing customer acquisition costs.'
+    },
+    {
+      id: 'financial-health-cashflow',
+      title: 'Executive Financial Health & Performance Dashboard',
+      category: 'Data Visualization',
+      client: 'CFO & Executive Finance Committee',
+      period: '2024',
+      image: dashboard8,
+      summary: 'A financial analysis dashboard displaying EBITDA growth, operational cash flow, and cost vs budget variations.',
+      tags: ['Power BI', 'Financial Analytics', 'Cash Flow', 'Budget Forecasting'],
+      challenge: 'Finance teams spent days manually consolidating income statements and balance sheets, making dynamic scenario planning and cash flow forecasting slow.',
+      solution: 'Created an executive financial dashboard showing cash positions, working capital ratios, and department variance analysis.',
+      process: 'Connected directly to ERP financial tables. Created dynamic cascading income statement layouts in Power BI using custom matrix parameters and hierarchical rows.',
+      outcome: 'Cut monthly financial consolidation times from days to hours, allowing the executive committee to run rolling forecasts.'
     }
   ];
 
