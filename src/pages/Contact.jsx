@@ -574,8 +574,8 @@ export default function Contact() {
                             width: '100%',
                             padding: '0.9rem',
                             borderRadius: '12px',
-                            backgroundColor: 'var(--text-primary)',
-                            color: 'var(--bg-primary)',
+                            backgroundColor: 'var(--accent-orange)',
+                            color: '#ffffff',
                             fontWeight: 600,
                             fontSize: '0.9rem',
                             display: 'flex',
@@ -587,8 +587,8 @@ export default function Contact() {
                             transition: 'background-color 0.2s, transform 0.2s',
                             boxShadow: 'var(--card-shadow)'
                           }}
-                          onMouseEnter={(e) => { if (!isSubmitting) e.currentTarget.style.backgroundColor = 'var(--accent-orange)'; }}
-                          onMouseLeave={(e) => { if (!isSubmitting) e.currentTarget.style.backgroundColor = 'var(--text-primary)'; }}
+                          onMouseEnter={(e) => { if (!isSubmitting) e.currentTarget.style.backgroundColor = 'var(--accent-orange-hover)'; }}
+                          onMouseLeave={(e) => { if (!isSubmitting) e.currentTarget.style.backgroundColor = 'var(--accent-orange)'; }}
                         >
                           {isSubmitting ? (
                             <div 
