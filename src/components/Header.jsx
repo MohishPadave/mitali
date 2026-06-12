@@ -118,7 +118,7 @@ export default function Header({ activePage, setActivePage, theme, toggleTheme }
                       gap: '0.4rem',
                       padding: '0.4rem 0.8rem',
                       borderRadius: '9999px',
-                      color: isActive ? 'var(--text-primary)' : 'var(--text-secondary)',
+                      color: isActive ? '#ffffff' : 'var(--text-secondary)',
                       fontSize: '0.85rem',
                       fontWeight: 500,
                       transition: 'color 0.2s ease',
@@ -134,9 +134,9 @@ export default function Header({ activePage, setActivePage, theme, toggleTheme }
                           left: 0,
                           right: 0,
                           bottom: 0,
-                          backgroundColor: 'rgba(28, 27, 26, 0.04)',
+                          backgroundColor: 'var(--accent-orange)',
                           borderRadius: '9999px',
-                          border: '1px solid rgba(28, 27, 26, 0.06)',
+                          border: '1px solid var(--accent-orange)',
                           zIndex: -1,
                         }}
                         transition={{ type: 'spring', stiffness: 380, damping: 30 }}

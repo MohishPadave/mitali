@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, MapPin, Clock as ClockIcon, Calendar as CalendarIcon, CheckCircle, ArrowRight } from 'lucide-react';
+import { Mail, MapPin, Clock as ClockIcon, Calendar as CalendarIcon, CheckCircle, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function Contact() {
+  const [viewDate, setViewDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [email, setEmail] = useState('');
@@ -33,26 +34,68 @@ export default function Contact() {
     return () => clearInterval(interval);
   }, []);
 
-  // Generate next 5 business days (skipping weekends)
-  const getUpcomingDays = () => {
-    const days = [];
-    const options = { weekday: 'short', day: 'numeric', month: 'short' };
-    let current = new Date();
+  // Generate all days in month including offset spaces
+  const getDaysInMonth = (date) => {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const firstDayOfMonth = new Date(year, month, 1);
+    const lastDayOfMonth = new Date(year, month + 1, 0);
     
-    while (days.length < 5) {
-      current.setDate(current.getDate() + 1);
-      // Skip weekends
-      if (current.getDay() !== 0 && current.getDay() !== 6) {
-        days.push({
-          display: current.toLocaleDateString('en-US', options),
-          value: current.toDateString()
-        });
-      }
+    const days = [];
+    const totalDays = lastDayOfMonth.getDate();
+    // Grid starts on Sunday (getDay(): 0 = Sun, 1 = Mon...)
+    const startOffset = firstDayOfMonth.getDay(); 
+    
+    // Lead padding
+    for (let i = 0; i < startOffset; i++) {
+      days.push(null);
     }
+    
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    
+    const options = { weekday: 'short', day: 'numeric', month: 'short' };
+    
+    for (let d = 1; d <= totalDays; d++) {
+      const dateObj = new Date(year, month, d);
+      const isPast = dateObj < today;
+      const isWeekend = dateObj.getDay() === 0 || dateObj.getDay() === 6;
+      
+      days.push({
+        dayNumber: d,
+        isPast,
+        isWeekend,
+        isSelectable: !isPast && !isWeekend,
+        display: dateObj.toLocaleDateString('en-US', options),
+        value: dateObj.toDateString(),
+        isToday: dateObj.toDateString() === today.toDateString()
+      });
+    }
+    
     return days;
   };
 
-  const days = getUpcomingDays();
+  const handlePrevMonth = () => {
+    setViewDate(prev => {
+      const today = new Date();
+      if (prev.getFullYear() === today.getFullYear() && prev.getMonth() === today.getMonth()) {
+        return prev;
+      }
+      return new Date(prev.getFullYear(), prev.getMonth() - 1, 1);
+    });
+  };
+
+  const handleNextMonth = () => {
+    setViewDate(prev => new Date(prev.getFullYear(), prev.getMonth() + 1, 1));
+  };
+
+  const isCurrentMonth = () => {
+    const today = new Date();
+    return viewDate.getFullYear() === today.getFullYear() && viewDate.getMonth() === today.getMonth();
+  };
+
+  const monthName = viewDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  const days = getDaysInMonth(viewDate);
   const timeSlots = ["10:00 AM", "11:30 AM", "2:00 PM", "4:30 PM"];
 
   const handleBook = async (e) => {
@@ -213,64 +256,162 @@ export default function Contact() {
 
                   {/* Step 1: Select Date */}
                   <div>
-                    <span 
-                      style={{ 
-                        display: 'flex', 
-                        alignItems: 'center', 
-                        gap: '0.5rem', 
-                        fontSize: '0.75rem', 
-                        fontWeight: 700, 
-                        color: 'var(--text-tertiary)', 
-                        textTransform: 'uppercase', 
-                        letterSpacing: '0.05em', 
-                        marginBottom: '0.75rem' 
-                      }}
-                    >
-                      <CalendarIcon size={14} style={{ color: 'var(--accent-orange)' }} />
-                      Select Date
-                    </span>
-                    <div 
-                      style={{ 
-                        display: 'flex', 
-                        gap: '0.5rem', 
-                        overflowX: 'auto', 
-                        paddingBottom: '0.5rem',
-                        scrollbarWidth: 'none', // Firefox
-                        msOverflowStyle: 'none' // IE/Edge
-                      }}
-                    >
-                      {days.map((day) => {
-                        const isSelected = selectedDate?.value === day.value;
-                        return (
-                          <button
-                            key={day.value}
-                            type="button"
-                            onClick={() => {
-                              setSelectedDate(day);
-                              setSelectedTime(null);
-                            }}
-                            style={{
-                              flexShrink: 0,
-                              padding: '0.6rem 1rem',
-                              borderRadius: '12px',
-                              textAlign: 'center',
-                              border: '1px solid',
-                              borderColor: isSelected ? 'var(--accent-orange)' : 'var(--border-color)',
-                              backgroundColor: isSelected ? 'var(--accent-orange)' : 'var(--bg-secondary)',
-                              color: isSelected ? '#ffffff' : 'var(--text-secondary)',
-                              transition: 'var(--transition-fast)',
-                              cursor: 'pointer'
+                    {/* Header: Select Date Title, Month Navigation */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.75rem' }}>
+                      <span 
+                        style={{ 
+                          display: 'flex', 
+                          alignItems: 'center', 
+                          gap: '0.5rem', 
+                          fontSize: '0.75rem', 
+                          fontWeight: 700, 
+                          color: 'var(--text-tertiary)', 
+                          textTransform: 'uppercase', 
+                          letterSpacing: '0.05em'
+                        }}
+                      >
+                        <CalendarIcon size={14} style={{ color: 'var(--accent-orange)' }} />
+                        Select Date
+                      </span>
+                      
+                      {/* Month Switcher Controls */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                        <button
+                          type="button"
+                          onClick={handlePrevMonth}
+                          disabled={isCurrentMonth()}
+                          style={{
+                            width: '28px',
+                            height: '28px',
+                            borderRadius: '50%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            border: '1px solid var(--border-color)',
+                            backgroundColor: 'var(--bg-secondary)',
+                            color: 'var(--text-secondary)',
+                            cursor: isCurrentMonth() ? 'not-allowed' : 'pointer',
+                            opacity: isCurrentMonth() ? 0.35 : 1,
+                            transition: 'var(--transition-fast)'
+                          }}
+                          title="Previous Month"
+                        >
+                          <ChevronLeft size={16} />
+                        </button>
+                        
+                        <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-primary)', minWidth: '90px', textAlign: 'center' }}>
+                          {monthName}
+                        </span>
+                        
+                        <button
+                          type="button"
+                          onClick={handleNextMonth}
+                          style={{
+                            width: '28px',
+                            height: '28px',
+                            borderRadius: '50%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            border: '1px solid var(--border-color)',
+                            backgroundColor: 'var(--bg-secondary)',
+                            color: 'var(--text-secondary)',
+                            cursor: 'pointer',
+                            transition: 'var(--transition-fast)'
+                          }}
+                          title="Next Month"
+                        >
+                          <ChevronRight size={16} />
+                        </button>
+                      </div>
+                    </div>
+                    
+                    {/* Calendar Grid */}
+                    <div style={{ border: '1px solid var(--border-color)', borderRadius: '16px', padding: '1rem', backgroundColor: 'var(--bg-secondary)' }}>
+                      {/* Weekday Labels (Sun to Sat) */}
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', textAlign: 'center', gap: '4px', marginBottom: '0.5rem' }}>
+                        {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map((label, idx) => (
+                          <span 
+                            key={label} 
+                            style={{ 
+                              fontSize: '0.7rem', 
+                              fontWeight: 700, 
+                              color: (idx === 0 || idx === 6) ? 'var(--text-tertiary)' : 'var(--text-secondary)',
+                              opacity: 0.8 
                             }}
                           >
-                            <span style={{ display: 'block', fontSize: '0.65rem', uppercase: 'true', fontWeight: 700, opacity: 0.8 }}>
-                              {day.display.split(',')[0]}
-                            </span>
-                            <span style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginTop: '0.15rem' }}>
-                              {day.display.split(' ')[1]} {day.display.split(' ')[2]}
-                            </span>
-                          </button>
-                        );
-                      })}
+                            {label}
+                          </span>
+                        ))}
+                      </div>
+                      
+                      {/* Day Cells Grid */}
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '4px', textAlign: 'center' }}>
+                        {days.map((day, idx) => {
+                          if (!day) {
+                            return <div key={`empty-${idx}`} />;
+                          }
+                          
+                          const isSelected = selectedDate?.value === day.value;
+                          
+                          // Style based on state
+                          let buttonStyle = {
+                            aspectRatio: '1',
+                            width: '100%',
+                            borderRadius: '50%',
+                            fontSize: '0.8rem',
+                            fontWeight: day.isToday ? 700 : 500,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            border: '1px solid transparent',
+                            cursor: 'pointer',
+                            transition: 'var(--transition-fast)'
+                          };
+                          
+                          if (isSelected) {
+                            buttonStyle.backgroundColor = 'var(--accent-orange)';
+                            buttonStyle.color = '#ffffff';
+                          } else if (!day.isSelectable) {
+                            buttonStyle.color = 'var(--text-tertiary)';
+                            buttonStyle.opacity = 0.35;
+                            buttonStyle.cursor = 'not-allowed';
+                          } else {
+                            // Selectable Day
+                            buttonStyle.backgroundColor = 'var(--card-bg)';
+                            buttonStyle.color = 'var(--text-primary)';
+                            buttonStyle.border = day.isToday ? '1.5px dashed var(--accent-orange)' : '1px solid var(--border-color)';
+                          }
+                          
+                          return (
+                            <button
+                              key={day.value}
+                              type="button"
+                              disabled={!day.isSelectable}
+                              onClick={() => {
+                                setSelectedDate(day);
+                                setSelectedTime(null);
+                              }}
+                              style={buttonStyle}
+                              onMouseEnter={(e) => {
+                                if (day.isSelectable && !isSelected) {
+                                  e.currentTarget.style.borderColor = 'var(--accent-orange)';
+                                  e.currentTarget.style.backgroundColor = 'rgba(229, 151, 64, 0.05)';
+                                }
+                              }}
+                              onMouseLeave={(e) => {
+                                if (day.isSelectable && !isSelected) {
+                                  e.currentTarget.style.borderColor = day.isToday ? 'var(--accent-orange)' : 'var(--border-color)';
+                                  e.currentTarget.style.backgroundColor = 'var(--card-bg)';
+                                }
+                              }}
+                              title={day.isWeekend ? 'Weekends unavailable' : day.isPast ? 'Past dates unavailable' : undefined}
+                            >
+                              {day.dayNumber}
+                            </button>
+                          );
+                        })}
+                      </div>
                     </div>
                   </div>
 

@@ -57,11 +57,14 @@ export default function About() {
     }
   ];
 
+  const workExperiences = experiences.filter(exp => exp.type === 'work');
+  const educationExperiences = experiences.filter(exp => exp.type === 'education');
+
   const tools = [
-    { name: 'Data Visualization', icon: Eye, details: 'Power BI, Tableau, building interactive dashboards, design systems, storytelling.' },
-    { name: 'Python Analytics', icon: Code, details: 'Pandas, NumPy, Matplotlib, Seaborn, exploratory data analysis, automation scripts.' },
-    { name: 'Data Modeling & SQL', icon: Layout, details: 'SQL queries, data cleaning, structuring relational tables, database schema design.' },
-    { name: 'Business Intelligence', icon: Briefcase, details: 'Advanced Excel, Pivot tables, financial modeling, analyzing consumer trends.' }
+    { name: 'Spreadsheets', icon: Layout, details: 'Excel (advanced formulas, pivot tables, data cleaning).' },
+    { name: 'Business Intelligence', icon: Eye, details: 'Power BI & Tableau Dashboards (interactive reports, data modeling).' },
+    { name: 'Python Analytics', icon: Code, details: 'Python (Pandas, Matplotlib, Seaborn, exploratory analysis).' },
+    { name: 'Core Methodologies', icon: Briefcase, details: 'Data Analysis, Problem-solving, Communication, Data Storytelling.' }
   ];
 
   const containerVariants = {
@@ -240,14 +243,14 @@ export default function About() {
           </motion.div>
         </section>
 
-        {/* Experience Timeline */}
-        <section>
+        {/* Work Experience Timeline */}
+        <section style={{ marginBottom: '6rem' }}>
           <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
             <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-tertiary)', letterSpacing: '0.15em', display: 'block', marginBottom: '0.5rem' }}>
-              JOURNEY
+              EXPERIENCE
             </span>
             <h2 style={{ fontSize: '2rem', color: 'var(--text-primary)' }}>
-              Work & <span className="text-orange">Education</span>
+              Work <span className="text-orange">Experience</span>
             </h2>
           </div>
 
@@ -264,7 +267,7 @@ export default function About() {
               }}
             />
 
-            {experiences.map((exp, index) => (
+            {workExperiences.map((exp, index) => (
               <motion.div
                 key={exp.title}
                 initial={{ opacity: 0, x: -20 }}
@@ -288,7 +291,7 @@ export default function About() {
                     width: '16px',
                     height: '16px',
                     borderRadius: '50%',
-                    backgroundColor: exp.type === 'work' ? 'var(--accent-orange)' : 'var(--text-primary)',
+                    backgroundColor: 'var(--accent-orange)',
                     border: '3px solid var(--bg-primary)',
                     zIndex: 2,
                     boxShadow: '0 0 0 3px var(--border-color)'
@@ -323,7 +326,112 @@ export default function About() {
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-secondary)', fontSize: '0.9rem', fontWeight: 500 }}>
-                  {exp.type === 'work' ? <Briefcase size={14} /> : <GraduationCap size={14} />}
+                  <Briefcase size={14} />
+                  <span>{exp.organization}</span>
+                </div>
+
+                {exp.description && (
+                  Array.isArray(exp.description) ? (
+                    <ul style={{ paddingLeft: '1.25rem', margin: '0.5rem 0 0 0', listStyleType: 'disc', color: 'var(--text-secondary)', fontSize: '0.925rem', lineHeight: 1.6 }}>
+                      {exp.description.map((bullet, idx) => (
+                        <li key={idx} style={{ marginBottom: '0.4rem' }}>{bullet}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p style={{ fontSize: '0.925rem', color: 'var(--text-secondary)', lineHeight: 1.5, marginTop: '0.4rem' }}>
+                      {exp.description}
+                    </p>
+                  )
+                )}
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* Education Timeline */}
+        <section style={{ marginBottom: '4rem' }}>
+          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-tertiary)', letterSpacing: '0.15em', display: 'block', marginBottom: '0.5rem' }}>
+              EDUCATION
+            </span>
+            <h2 style={{ fontSize: '2rem', color: 'var(--text-primary)' }}>
+              Educational <span className="text-orange">Background</span>
+            </h2>
+          </div>
+
+          <div style={{ maxWidth: '800px', margin: '0 auto', position: 'relative', paddingLeft: '2rem' }}>
+            {/* Vertical timeline line */}
+            <div 
+              style={{
+                position: 'absolute',
+                left: '7px',
+                top: '12px',
+                bottom: '12px',
+                width: '2px',
+                backgroundColor: 'var(--border-color)'
+              }}
+            />
+
+            {educationExperiences.map((exp, index) => (
+              <motion.div
+                key={exp.title}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                style={{
+                  position: 'relative',
+                  marginBottom: '3rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.5rem'
+                }}
+              >
+                {/* Timeline node */}
+                <div 
+                  style={{
+                    position: 'absolute',
+                    left: '-29px',
+                    top: '4px',
+                    width: '16px',
+                    height: '16px',
+                    borderRadius: '50%',
+                    backgroundColor: 'var(--text-primary)',
+                    border: '3px solid var(--bg-primary)',
+                    zIndex: 2,
+                    boxShadow: '0 0 0 3px var(--border-color)'
+                  }}
+                />
+
+                <div 
+                  style={{
+                    display: 'flex',
+                    alignItems: 'baseline',
+                    justifyContent: 'space-between',
+                    flexWrap: 'wrap',
+                    gap: '0.5rem'
+                  }}
+                >
+                  <h3 style={{ fontSize: '1.25rem', color: 'var(--text-primary)', fontWeight: 600 }}>
+                    {exp.title}
+                  </h3>
+                  <span 
+                    style={{
+                      fontSize: '0.85rem',
+                      fontWeight: 600,
+                      color: 'var(--accent-orange)',
+                      backgroundColor: 'rgba(229, 151, 64, 0.06)',
+                      padding: '0.2rem 0.6rem',
+                      borderRadius: '100px',
+                      border: '1px solid rgba(229, 151, 64, 0.1)'
+                    }}
+                  >
+                    {exp.period}
+                  </span>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-secondary)', fontSize: '0.9rem', fontWeight: 500 }}>
+                  <GraduationCap size={14} />
                   <span>{exp.organization}</span>
                 </div>
 
