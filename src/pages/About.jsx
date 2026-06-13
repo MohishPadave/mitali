@@ -135,7 +135,7 @@ export default function About() {
                 lineHeight: 1.5
               }}
             >
-              "Good design is not just how it looks; it is about making complex systems playful, visual, and human."
+              "Good dashboard is not just how it looks; it is about making complex systems playful, visual, and human."
             </p>
           </motion.div>
 
